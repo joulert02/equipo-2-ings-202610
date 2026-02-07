@@ -1,4 +1,4 @@
-# Documentación
+# Documentacion
 
 ## ¿Qué problema resuelve nuestro proyecto?
 En la U es común que estudiantes y profesores tengan limitaciones de tiempo para realizar ciertas tareas, como comprar comida, recoger materiales, entregar documentos o hacer pequeñas diligencias. Estas necesidades suelen surgir en horarios de clase o en momentos de alta carga académica, donde abandonar la actividad principal no es una buena opción.

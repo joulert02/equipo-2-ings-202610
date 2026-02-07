@@ -10,4 +10,4 @@
 
 ## Tabla de contenido
 
-- [Documentación](#Documentacion)
+- [Documentación](doc/index.md#documentacion)
