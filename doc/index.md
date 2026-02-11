@@ -11,7 +11,4 @@ Por ejemplo, un estudiante que está en clase a la hora del almuerzo puede solic
 
 ## Navegación de la documentación
 
-| Sección       | Carpeta / enlace             | Descripción
-| ------------------------------------------------------------------------------------------------------ |
-| Análisis      | [doc/analysis](analysis/)    | Contexto, alcance, requerimientos y análisis detallado del problema |
-|---------------------------------------------------------------------------------------------------------|
+ Subcarpeta: [doc/analysis](analysis/)|  Descripción: Contexto, alcance, requerimientos y análisis detallado del problema
