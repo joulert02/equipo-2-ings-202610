@@ -1,3 +1,10 @@
+## Navegación de la documentación
+
+| Carpeta | Descripción |
+| :--- | :--- |
+| 📂 [doc/analysis](analysis/) | Contexto, alcance, requerimientos y análisis del problema. |
+
+
 # Documentacion
 
 ## ¿Qué problema resuelve nuestro proyecto?
@@ -9,8 +16,3 @@ FavUPB resuelve este problema mediante una plataforma de “favores bajo demanda
 
 Por ejemplo, un estudiante que está en clase a la hora del almuerzo puede solicitar que alguien compre su comida. Otro usuario acepta la solicitud, realiza la compra y recibe el pago acordado. Así, la plataforma transforma necesidades cotidianas en soluciones rápidas, coordinadas y recompensadas.
 
-## Navegación de la documentación
-
-| Carpeta | Descripción |
-| :--- | :--- |
-| 📂 [doc/analysis](analysis/) | Contexto, alcance, requerimientos y análisis del problema. |
