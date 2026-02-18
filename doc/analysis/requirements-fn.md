@@ -277,3 +277,64 @@ El sistema deberá registrar y permitir la consulta del historial de favores rea
 - La información deberá mantenerse disponible mientras la cuenta esté activa.  
 
 ---
+## RF-017
+**Registro de transacciones**
+
+**Descripción:** 
+El sistema debe registrar el valor de la recompensa acordada en el perfil del ejecutor una vez que el favor se marque como finalizado. 
+
+**Prioridad:** P0
+
+**Criterios de Aceptación:**
+-El sistema detecta el cambio de estado a "Finalizado". 
+-Se suma el monto exacto al balance digital del ejecutor.
+-Se genera un comprobante o registro histórico de la transacción.
+
+---
+## RF-018
+
+**Calificación del ejecutor**
+
+**Descripción:**
+ La plataforma permitirá al solicitante evaluar el servicio del ejecutor mediante una escala numérica y comentarios tras recibir el favor. 
+
+**Prioridad:** P2
+
+**Criterios de Aceptación:**
+-Habilitar selección de 1 a 5 estrellas al cerrar el favor.
+-Permitir el ingreso de un comentario de texto opcional.
+-Validar que solo el solicitante del favor pueda calificar al ejecutor.
+
+---
+
+## RF-019
+
+**Calificación del solicitante**
+
+**Descripción:**
+La aplicación debe habilitar una opción para que el ejecutor califique al solicitante, promoviendo el respeto y la confianza en la comunidad. 
+
+**Prioridad:** P2
+
+**Criterios de Aceptación:**
+-Habilitar formulario de calificación tras la entrega del favor.
+-Almacenar la puntuación en el perfil del solicitante.
+-Garantizar que la calificación sea recíproca y justa.
+
+---
+
+## RF-020
+
+**Visualización de reputación** 
+
+**Descripción:** 
+El sistema calculará y mostrará automáticamente el promedio de calificaciones en el perfil público de cada usuario. 
+
+**Prioridad:** P3
+
+**Criterios de Aceptación:**
+-Cálculo automático del promedio matemático de estrellas.
+-Actualización del perfil en tiempo real tras cada nueva reseña.
+-Visualización pública de la puntuación en la vista de perfil y solicitudes.
+
+---
