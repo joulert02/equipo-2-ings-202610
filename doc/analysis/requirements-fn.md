@@ -210,3 +210,70 @@ El sistema deberá permitir al solicitante cancelar una solicitud de favor siemp
 - La solicitud deja de ser visible en el feed global de otros usuarios.
 
 - Se evita que dos usuarios puedan aceptar el mismo favor simultáneamente (control de concurrrencia).
+---
+
+## RF-013
+
+### Seguimiento del favor
+
+**Descripción:**  
+El sistema deberá permitir la comunicación básica entre el solicitante y el ejecutor mediante un módulo de mensajería dentro de la plataforma, asociado a cada favor aceptado.
+
+**Prioridad:** P0  
+
+**Criterios de aceptación:**  
+- El chat solo estará disponible cuando el favor haya sido aceptado.  
+- Los mensajes deberán estar asociados al favor correspondiente.  
+- Ambos usuarios podrán visualizar el historial completo de la conversación.  
+- El sistema deberá almacenar los mensajes enviados y recibidos.  
+
+---
+
+## RF-014
+
+### Marcar favor como completado
+
+**Descripción:**  
+El sistema deberá permitir que el usuario ejecutor marque un favor como completado una vez haya finalizado la tarea acordada.
+
+**Prioridad:** P0  
+
+**Criterios de aceptación:**  
+- Solo el ejecutor asignado podrá cambiar el estado a “Completado”.  
+- El cambio de estado deberá quedar registrado en el sistema.  
+- El solicitante deberá recibir una notificación del cambio de estado.  
+
+---
+
+## RF-015
+
+### Confirmación del favor
+
+**Descripción:**  
+El sistema deberá permitir que el solicitante confirme la correcta finalización del favor una vez el ejecutor lo marque como completado.
+
+**Prioridad:** P0  
+
+**Criterios de aceptación:**  
+- El solicitante podrá confirmar o rechazar la finalización.  
+- El estado del favor cambiará a “Finalizado” únicamente cuando el solicitante confirme.  
+- La confirmación deberá quedar registrada en el historial del favor.  
+
+---
+
+## RF-016
+
+### Historial de favores
+
+**Descripción:**  
+El sistema deberá registrar y permitir la consulta del historial de favores realizados y solicitados por cada usuario dentro de su perfil.
+
+**Prioridad:** P3  
+
+**Criterios de aceptación:**  
+- El historial mostrará favores solicitados y ejecutados.  
+- Cada registro incluirá estado, fecha y usuario relacionado.  
+- El usuario solo podrá visualizar su propio historial.  
+- La información deberá mantenerse disponible mientras la cuenta esté activa.  
+
+---
