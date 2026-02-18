@@ -286,9 +286,9 @@ El sistema debe registrar el valor de la recompensa acordada en el perfil del ej
 **Prioridad:** P0
 
 **Criterios de Aceptación:**
--El sistema detecta el cambio de estado a "Finalizado". 
--Se suma el monto exacto al balance digital del ejecutor.
--Se genera un comprobante o registro histórico de la transacción.
+- El sistema detecta el cambio de estado a "Finalizado". 
+- Se suma el monto exacto al balance digital del ejecutor.
+- Se genera un comprobante o registro histórico de la transacción.
 
 ---
 ## RF-018
@@ -301,9 +301,9 @@ El sistema debe registrar el valor de la recompensa acordada en el perfil del ej
 **Prioridad:** P2
 
 **Criterios de Aceptación:**
--Habilitar selección de 1 a 5 estrellas al cerrar el favor.
--Permitir el ingreso de un comentario de texto opcional.
--Validar que solo el solicitante del favor pueda calificar al ejecutor.
+- Habilitar selección de 1 a 5 estrellas al cerrar el favor.
+- Permitir el ingreso de un comentario de texto opcional.
+- Validar que solo el solicitante del favor pueda calificar al ejecutor.
 
 ---
 
@@ -317,9 +317,9 @@ La aplicación debe habilitar una opción para que el ejecutor califique al soli
 **Prioridad:** P2
 
 **Criterios de Aceptación:**
--Habilitar formulario de calificación tras la entrega del favor.
--Almacenar la puntuación en el perfil del solicitante.
--Garantizar que la calificación sea recíproca y justa.
+- Habilitar formulario de calificación tras la entrega del favor.
+- Almacenar la puntuación en el perfil del solicitante.
+- Garantizar que la calificación sea recíproca y justa.
 
 ---
 
@@ -333,8 +333,8 @@ El sistema calculará y mostrará automáticamente el promedio de calificaciones
 **Prioridad:** P3
 
 **Criterios de Aceptación:**
--Cálculo automático del promedio matemático de estrellas.
--Actualización del perfil en tiempo real tras cada nueva reseña.
--Visualización pública de la puntuación en la vista de perfil y solicitudes.
+- Cálculo automático del promedio matemático de estrellas.
+- Actualización del perfil en tiempo real tras cada nueva reseña.
+- Visualización pública de la puntuación en la vista de perfil y solicitudes.
 
 ---
