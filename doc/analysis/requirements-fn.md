@@ -1,6 +1,7 @@
 # Requisitos funcionales - FavUPB
 
 ## RF-001 Registro de usuarios
+**Prioridad:** P0
 **Característica:** Registro de usuario
 
 **Escenario:** Registro exitoso
@@ -18,6 +19,7 @@
 ---
 
 ## RF-002 Inicio y cierre de sesión
+**Prioridad:** P0
 **Característica:** Autenticación
 
 **Escenario:** Inicio de sesión correcto
@@ -33,6 +35,7 @@
 ---
 
 ## RF-003 Edición de perfil
+**Prioridad:** P1
 **Característica:** Edición de perfil
 
 **Escenario:** Actualizar información
@@ -43,6 +46,7 @@
 ---
 
 ## RF-004 Visualización de perfil público
+**Prioridad:** P3
 **Característica:** Ver perfil público
 
 **Escenario:** Consultar perfil de otro usuario
@@ -53,6 +57,7 @@
 ---
 
 ## RF-005 Crear solicitud de favor
+**Prioridad:** P0
 **Característica:** Crear favor
 
 **Escenario:** Publicación de favor
@@ -64,6 +69,7 @@
 ---
 
 ## RF-006 Adjuntar imágenes
+**Prioridad:** P1
 **Característica:** Adjuntar imágenes
 
 **Escenario:** Subir imagen válida
@@ -74,6 +80,7 @@
 ---
 
 ## RF-007 Tiempo límite
+**Prioridad:** P1
 **Característica:** Definir límite de tiempo
 
 **Escenario:** Definir fecha válida
@@ -84,6 +91,7 @@
 ---
 
 ## RF-008 Cancelar solicitud
+**Prioridad:** P0
 **Característica:** Cancelar favor
 
 **Escenario:** Cancelar favor disponible
@@ -94,6 +102,7 @@
 ---
 
 ## RF-009 Ver favores cercanos
+**Prioridad:** P2
 **Característica:** Favores cercanos
 
 **Escenario:** Mostrar favores disponibles
@@ -104,6 +113,7 @@
 ---
 
 ## RF-010 Filtrar solicitudes
+**Prioridad:** P2
 **Característica:** Filtros
 
 **Escenario:** Filtrar por categoría
@@ -114,6 +124,7 @@
 ---
 
 ## RF-011 Aceptar favor
+**Prioridad:** P0
 **Característica:** Aceptar favor
 
 **Escenario:** Aceptación exitosa
@@ -124,6 +135,7 @@
 ---
 
 ## RF-012 Actualizar disponibilidad
+**Prioridad:** P0
 **Característica:** Exclusividad del favor
 
 **Escenario:** Evitar doble aceptación
@@ -134,6 +146,7 @@
 ---
 
 ## RF-013 Chat del favor
+**Prioridad:** P0
 **Característica:** Mensajería
 
 **Escenario:** Comunicación entre usuarios
@@ -144,6 +157,7 @@
 ---
 
 ## RF-014 Marcar como completado
+**Prioridad:** P0
 **Característica:** Completar favor
 
 **Escenario:** Ejecutor finaliza favor
@@ -154,6 +168,7 @@
 ---
 
 ## RF-015 Confirmar finalización
+**Prioridad:** P0
 **Característica:** Confirmación
 
 **Escenario:** Confirmación del solicitante
@@ -164,6 +179,7 @@
 ---
 
 ## RF-016 Historial
+**Prioridad:** P3
 **Característica:** Historial de favores
 
 **Escenario:** Consultar historial
@@ -174,6 +190,7 @@
 ---
 
 ## RF-017 Registro de recompensa
+**Prioridad:** P0
 **Característica:** Registro de pago
 
 **Escenario:** Registrar recompensa
@@ -184,6 +201,7 @@
 ---
 
 ## RF-018 Calificar ejecutor
+**Prioridad:** P2
 **Característica:** Calificación del ejecutor
 
 **Escenario:** Calificar servicio
@@ -194,6 +212,7 @@
 ---
 
 ## RF-019 Calificar solicitante
+**Prioridad:** P2
 **Característica:** Calificación del solicitante
 
 **Escenario:** Evaluar solicitante
@@ -204,6 +223,7 @@
 ---
 
 ## RF-020 Mostrar reputación
+**Prioridad:** P3
 **Característica:** Reputación
 
 **Escenario:** Mostrar promedio
