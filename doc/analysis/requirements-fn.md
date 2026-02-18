@@ -1,12 +1,10 @@
 # Requisitos funcionales - FavUPB
 
-## Gestión de usuarios
 
----
 
 ## RF-001
 
-**Título:**Registro de usuarios
+**Título**: Registro de usuarios
 
 **Descripción:**
 El sistema deberá permitir a un usuario registrarse mediante un correo electrónico y una contraseña para crear una cuenta dentro de la plataforma.
@@ -25,7 +23,7 @@ El sistema deberá permitir a un usuario registrarse mediante un correo electró
 
 ## RF-002
 
-**Título:**Inicio y cierre de sesión
+**Título**: Inicio y cierre de sesión
 
 **Descripción:**
 El sistema deberá permitir a los usuarios iniciar sesión con sus credenciales y cerrar sesión cuando lo deseen.
@@ -147,3 +145,68 @@ El sistema deberá permitir al solicitante cancelar una solicitud de favor siemp
 - La solicitud deja de aparecer en la lista de favores disponibles.
 
 ---
+
+## RF-009
+**Título:** Visualización de favores cercanos
+
+**Descripción:** El sistema deberá mostrar un listado de favores disponibles que se encuentren en una ubicación cercana a la posición actual del usuario.
+
+**Prioridad:** P2
+
+**Criterios de aceptación:**
+
+- El sistema accede a la ubicación del usuario (con permiso).
+
+- Se despliega una lista o mapa con las solicitudes activas.
+
+- Solo se muestran favores que no han sido aceptados aún.
+
+---
+
+## RF-010
+**Título:** Filtrado de solicitudes
+
+**Descripción:** El sistema deberá permitir al usuario segmentar la búsqueda de favores aplicando filtros específicos por tipo de favor o por el tipo de recompensa ofrecida.
+
+**Prioridad:** P2
+
+**Criterios de aceptación:**
+
+- Existe un menú o botón de filtros visible en la pantalla de exploración.
+
+- El usuario puede seleccionar una categoría (ej. transporte, entrega, académico).
+
+- El listado se actualiza instantáneamente al aplicar los filtros.
+
+---
+
+## RF-011
+**Título:** Aceptación de solicitudes
+
+**Descripción:** Un usuario autenticado deberá tener la capacidad de seleccionar y aceptar una solicitud de favor que se encuentre en estado disponible.
+
+**Prioridad:** P0
+
+**Criterios de aceptación:**
+
+- El usuario puede ver el detalle del favor antes de aceptar.
+
+- Existe un botón claro de "Aceptar Favor".
+
+- El sistema confirma al usuario que la acción se realizó con éxito.
+---
+
+## RF-012
+**Título:** Actualización de disponibilidad de favores
+
+**Descripción:** Una vez que una solicitud ha sido aceptada por un usuario, el sistema deberá ocultarla automáticamente del listado de disponibles para el resto de los usuarios.
+
+**Prioridad:** P0
+
+**Criterios de aceptación:**
+
+- El favor cambia su estado a "En progreso" o "Aceptado" en la base de datos.
+
+- La solicitud deja de ser visible en el feed global de otros usuarios.
+
+- Se evita que dos usuarios puedan aceptar el mismo favor simultáneamente (control de concurrrencia).
