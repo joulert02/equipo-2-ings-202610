@@ -1,3 +1,10 @@
+## Navegación de la documentación
+
+| Carpeta | Descripción |
+| :--- | :--- |
+| 📂 [doc/analysis](analysis/) | Contexto, alcance, requerimientos y análisis del problema. |
+
+
 # Documentacion
 
 ## ¿Qué problema resuelve nuestro proyecto?
@@ -8,3 +15,4 @@ Actualmente no existe un canal organizado y confiable dentro de la comunidad par
 FavUPB resuelve este problema mediante una plataforma de “favores bajo demanda”, donde los usuarios pueden publicar solicitudes concretas y otros usuarios pueden aceptarlas y completarlas a cambio de una remuneración económica. La aplicación facilita la conexión entre quien necesita ayuda y quien tiene disponibilidad para ofrecerla, generando beneficios para ambas partes y optimizando el tiempo dentro de la comunidad universitaria.
 
 Por ejemplo, un estudiante que está en clase a la hora del almuerzo puede solicitar que alguien compre su comida. Otro usuario acepta la solicitud, realiza la compra y recibe el pago acordado. Así, la plataforma transforma necesidades cotidianas en soluciones rápidas, coordinadas y recompensadas.
+
