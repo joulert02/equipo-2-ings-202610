@@ -1,340 +1,212 @@
 # Requisitos funcionales - FavUPB
 
+## RF-001 Registro de usuarios
+**Característica:** Registro de usuario
 
+**Escenario:** Registro exitoso
+- **Dado** un usuario sin cuenta en la plataforma
+- **Cuando** ingresa un correo válido y una contraseña válida
+- **Entonces** el sistema crea la cuenta
+- **Y** muestra confirmación de registro
 
-## RF-001
-
-**Título**: Registro de usuarios
-
-**Descripción:**
-El sistema deberá permitir a un usuario registrarse mediante un correo electrónico y una contraseña para crear una cuenta dentro de la plataforma.
-
-**Prioridad:** P0
-
-**Criterios de aceptación:**
-
-- El usuario puede ingresar correo electrónico y contraseña en el formulario de registro.
-- El sistema valida que el correo tenga un formato correcto.
-- El sistema impide el registro de correos ya existentes.
-- La contraseña debe cumplir con una longitud mínima definida.
-- El sistema confirma el registro exitoso del usuario.
+**Escenario:** Correo ya existente
+- **Dado** un usuario registrado con un correo existente
+- **Cuando** intenta registrarse nuevamente con el mismo correo
+- **Entonces** el sistema rechaza el registro
+- **Y** muestra un mensaje de error
 
 ---
 
-## RF-002
+## RF-002 Inicio y cierre de sesión
+**Característica:** Autenticación
 
-**Título**: Inicio y cierre de sesión
+**Escenario:** Inicio de sesión correcto
+- **Dado** un usuario registrado
+- **Cuando** ingresa credenciales válidas
+- **Entonces** el sistema inicia sesión
 
-**Descripción:**
-El sistema deberá permitir a los usuarios iniciar sesión con sus credenciales y cerrar sesión cuando lo deseen.
-
-**Prioridad:** P0
-
-**Criterios de aceptación:**
-
-- El usuario puede iniciar sesión ingresando correo y contraseña válidos.
-- El sistema muestra un mensaje de error si los datos son incorrectos.
-- El sistema permite cerrar sesión de manera segura.
-- Al cerrar sesión, se finaliza la sesión activa del usuario.
+**Escenario:** Cierre de sesión
+- **Dado** un usuario autenticado
+- **Cuando** selecciona cerrar sesión
+- **Entonces** el sistema finaliza la sesión activa
 
 ---
 
-## RF-003
+## RF-003 Edición de perfil
+**Característica:** Edición de perfil
 
-**Título:** Edición de información básica
-
-**Descripción:**
-El sistema deberá permitir al usuario editar su información básica como nombre, foto de perfil y datos de contacto.
-
-**Prioridad:** P1
-
-**Criterios de aceptación:**
-
-- El usuario puede acceder a la opción de editar perfil.
-- El sistema permite modificar el nombre del usuario.
-- El sistema permite cambiar la foto de perfil.
-- El sistema permite actualizar los datos de contacto.
-- Los cambios se guardan correctamente.
+**Escenario:** Actualizar información
+- **Dado** un usuario autenticado
+- **Cuando** modifica su nombre, foto o contacto
+- **Entonces** el sistema guarda los cambios
 
 ---
 
-## RF-004
+## RF-004 Visualización de perfil público
+**Característica:** Ver perfil público
 
-**Título:** Visualización de perfil público
-
-**Descripción:**
-El sistema deberá permitir visualizar el perfil público de otros usuarios registrados en la plataforma.
-
-**Prioridad:** P3
-
-**Criterios de aceptación:**
-
-- El usuario puede seleccionar otro usuario para ver su perfil.
-- El sistema muestra únicamente la información pública del perfil.
-- El sistema no permite modificar información de otros usuarios.
-- La información se presenta de forma clara y ordenada.
+**Escenario:** Consultar perfil de otro usuario
+- **Dado** un usuario autenticado
+- **Cuando** abre el perfil de otro usuario
+- **Entonces** visualiza solo la información pública
 
 ---
 
-## RF-005
+## RF-005 Crear solicitud de favor
+**Característica:** Crear favor
 
-**Título:** Creación de solicitud de favor
-
-**Descripción:**
-El sistema deberá permitir al usuario crear una solicitud de favor ingresando una descripción, una ubicación aproximada y la recompensa económica ofrecida.
-
-**Prioridad:** P0
-
-**Criterios de aceptación:**
-
-- El usuario puede ingresar una descripción obligatoria del favor.
-- El usuario puede especificar una ubicación aproximada.
-- El usuario debe ingresar un valor de recompensa económica válido.
-- La solicitud queda visible para otros usuarios después de ser publicada.
+**Escenario:** Publicación de favor
+- **Dado** un usuario autenticado
+- **Cuando** ingresa descripción, ubicación y recompensa válida
+- **Entonces** el sistema publica el favor
+- **Y** queda visible para otros usuarios
 
 ---
 
-## RF-006
+## RF-006 Adjuntar imágenes
+**Característica:** Adjuntar imágenes
 
-**Título:** Adjuntar imágenes a la solicitud
-
-**Descripción:**
-El sistema deberá permitir al usuario adjuntar una o más imágenes a la solicitud de favor para complementar la descripción.
-
-**Prioridad:** P1
-
-**Criterios de aceptación:**
-
-- El usuario puede seleccionar imágenes desde el dispositivo móvil.
-- Las imágenes se cargan correctamente junto con la solicitud.
-- Otros usuarios pueden visualizar las imágenes asociadas al favor.
-- El sistema rechaza archivos que no sean imágenes.
+**Escenario:** Subir imagen válida
+- **Dado** una solicitud en creación
+- **Cuando** el usuario adjunta una imagen
+- **Entonces** la imagen queda asociada al favor
 
 ---
 
-## RF-007
+## RF-007 Tiempo límite
+**Característica:** Definir límite de tiempo
 
-**Título:** Definición de tiempo límite del favor
-
-**Descripción:**
-El sistema deberá permitir al usuario establecer un tiempo límite para la realización del favor solicitado.
-
-**Prioridad:** P1
-
-**Criterios de aceptación:**
-
-- El usuario puede seleccionar fecha y hora límite.
-- El tiempo límite debe ser posterior al momento de creación.
-- El tiempo límite se muestra a los usuarios que visualizan la solicitud.
-- Una solicitud expirada no puede ser aceptada.
+**Escenario:** Definir fecha válida
+- **Dado** un favor en creación
+- **Cuando** el usuario establece una fecha futura
+- **Entonces** el sistema guarda el tiempo límite
 
 ---
 
-## RF-008
+## RF-008 Cancelar solicitud
+**Característica:** Cancelar favor
 
-**Título:** Cancelación de solicitud de favor
-
-**Descripción:**
-El sistema deberá permitir al solicitante cancelar una solicitud de favor siempre que esta no haya sido aceptada por otro usuario.
-
-**Prioridad:** P0
-
-**Criterios de aceptación:**
-
-- El solicitante puede cancelar la solicitud desde la aplicación.
-- La solicitud deja de aparecer en la lista de favores disponibles.
+**Escenario:** Cancelar favor disponible
+- **Dado** un favor sin aceptar
+- **Cuando** el solicitante cancela la solicitud
+- **Entonces** el favor desaparece del listado
 
 ---
 
-## RF-009
-**Título:** Visualización de favores cercanos
+## RF-009 Ver favores cercanos
+**Característica:** Favores cercanos
 
-**Descripción:** El sistema deberá mostrar un listado de favores disponibles que se encuentren en una ubicación cercana a la posición actual del usuario.
-
-**Prioridad:** P2
-
-**Criterios de aceptación:**
-
-- El sistema accede a la ubicación del usuario (con permiso).
-
-- Se despliega una lista o mapa con las solicitudes activas.
-
-- Solo se muestran favores que no han sido aceptados aún.
+**Escenario:** Mostrar favores disponibles
+- **Dado** el usuario permite acceso a ubicación
+- **Cuando** abre la pantalla de exploración
+- **Entonces** el sistema muestra favores cercanos disponibles
 
 ---
 
-## RF-010
-**Título:** Filtrado de solicitudes
+## RF-010 Filtrar solicitudes
+**Característica:** Filtros
 
-**Descripción:** El sistema deberá permitir al usuario segmentar la búsqueda de favores aplicando filtros específicos por tipo de favor o por el tipo de recompensa ofrecida.
-
-**Prioridad:** P2
-
-**Criterios de aceptación:**
-
-- Existe un menú o botón de filtros visible en la pantalla de exploración.
-
-- El usuario puede seleccionar una categoría (ej. transporte, entrega, académico).
-
-- El listado se actualiza instantáneamente al aplicar los filtros.
+**Escenario:** Filtrar por categoría
+- **Dado** el listado de favores
+- **Cuando** aplica un filtro
+- **Entonces** el listado se actualiza según el filtro
 
 ---
 
-## RF-011
-**Título:** Aceptación de solicitudes
+## RF-011 Aceptar favor
+**Característica:** Aceptar favor
 
-**Descripción:** Un usuario autenticado deberá tener la capacidad de seleccionar y aceptar una solicitud de favor que se encuentre en estado disponible.
-
-**Prioridad:** P0
-
-**Criterios de aceptación:**
-
-- El usuario puede ver el detalle del favor antes de aceptar.
-
-- Existe un botón claro de "Aceptar Favor".
-
-- El sistema confirma al usuario que la acción se realizó con éxito.
----
-
-## RF-012
-**Título:** Actualización de disponibilidad de favores
-
-**Descripción:** Una vez que una solicitud ha sido aceptada por un usuario, el sistema deberá ocultarla automáticamente del listado de disponibles para el resto de los usuarios.
-
-**Prioridad:** P0
-
-**Criterios de aceptación:**
-
-- El favor cambia su estado a "En progreso" o "Aceptado" en la base de datos.
-
-- La solicitud deja de ser visible en el feed global de otros usuarios.
-
-- Se evita que dos usuarios puedan aceptar el mismo favor simultáneamente (control de concurrrencia).
----
-
-## RF-013
-
-### Seguimiento del favor
-
-**Descripción:**  
-El sistema deberá permitir la comunicación básica entre el solicitante y el ejecutor mediante un módulo de mensajería dentro de la plataforma, asociado a cada favor aceptado.
-
-**Prioridad:** P0  
-
-**Criterios de aceptación:**  
-- El chat solo estará disponible cuando el favor haya sido aceptado.  
-- Los mensajes deberán estar asociados al favor correspondiente.  
-- Ambos usuarios podrán visualizar el historial completo de la conversación.  
-- El sistema deberá almacenar los mensajes enviados y recibidos.  
+**Escenario:** Aceptación exitosa
+- **Dado** un favor disponible
+- **Cuando** un usuario lo acepta
+- **Entonces** el sistema lo asigna al usuario
 
 ---
 
-## RF-014
+## RF-012 Actualizar disponibilidad
+**Característica:** Exclusividad del favor
 
-### Marcar favor como completado
-
-**Descripción:**  
-El sistema deberá permitir que el usuario ejecutor marque un favor como completado una vez haya finalizado la tarea acordada.
-
-**Prioridad:** P0  
-
-**Criterios de aceptación:**  
-- Solo el ejecutor asignado podrá cambiar el estado a “Completado”.  
-- El cambio de estado deberá quedar registrado en el sistema.  
-- El solicitante deberá recibir una notificación del cambio de estado.  
+**Escenario:** Evitar doble aceptación
+- **Dado** un favor ya aceptado
+- **Cuando** otro usuario intenta aceptarlo
+- **Entonces** el sistema lo impide
 
 ---
 
-## RF-015
+## RF-013 Chat del favor
+**Característica:** Mensajería
 
-### Confirmación del favor
-
-**Descripción:**  
-El sistema deberá permitir que el solicitante confirme la correcta finalización del favor una vez el ejecutor lo marque como completado.
-
-**Prioridad:** P0  
-
-**Criterios de aceptación:**  
-- El solicitante podrá confirmar o rechazar la finalización.  
-- El estado del favor cambiará a “Finalizado” únicamente cuando el solicitante confirme.  
-- La confirmación deberá quedar registrada en el historial del favor.  
+**Escenario:** Comunicación entre usuarios
+- **Dado** un favor aceptado
+- **Cuando** un usuario envía un mensaje
+- **Entonces** el otro usuario puede leerlo
 
 ---
 
-## RF-016
+## RF-014 Marcar como completado
+**Característica:** Completar favor
 
-### Historial de favores
-
-**Descripción:**  
-El sistema deberá registrar y permitir la consulta del historial de favores realizados y solicitados por cada usuario dentro de su perfil.
-
-**Prioridad:** P3  
-
-**Criterios de aceptación:**  
-- El historial mostrará favores solicitados y ejecutados.  
-- Cada registro incluirá estado, fecha y usuario relacionado.  
-- El usuario solo podrá visualizar su propio historial.  
-- La información deberá mantenerse disponible mientras la cuenta esté activa.  
-
----
-## RF-017
-**Registro de transacciones**
-
-**Descripción:** 
-El sistema debe registrar el valor de la recompensa acordada en el perfil del ejecutor una vez que el favor se marque como finalizado. 
-
-**Prioridad:** P0
-
-**Criterios de Aceptación:**
-- El sistema detecta el cambio de estado a "Finalizado". 
-- Se suma el monto exacto al balance digital del ejecutor.
-- Se genera un comprobante o registro histórico de la transacción.
-
----
-## RF-018
-
-**Calificación del ejecutor**
-
-**Descripción:**
- La plataforma permitirá al solicitante evaluar el servicio del ejecutor mediante una escala numérica y comentarios tras recibir el favor. 
-
-**Prioridad:** P2
-
-**Criterios de Aceptación:**
-- Habilitar selección de 1 a 5 estrellas al cerrar el favor.
-- Permitir el ingreso de un comentario de texto opcional.
-- Validar que solo el solicitante del favor pueda calificar al ejecutor.
+**Escenario:** Ejecutor finaliza favor
+- **Dado** un favor en progreso
+- **Cuando** el ejecutor lo marca como completado
+- **Entonces** el solicitante recibe notificación
 
 ---
 
-## RF-019
+## RF-015 Confirmar finalización
+**Característica:** Confirmación
 
-**Calificación del solicitante**
-
-**Descripción:**
-La aplicación debe habilitar una opción para que el ejecutor califique al solicitante, promoviendo el respeto y la confianza en la comunidad. 
-
-**Prioridad:** P2
-
-**Criterios de Aceptación:**
-- Habilitar formulario de calificación tras la entrega del favor.
-- Almacenar la puntuación en el perfil del solicitante.
-- Garantizar que la calificación sea recíproca y justa.
+**Escenario:** Confirmación del solicitante
+- **Dado** un favor marcado como completado
+- **Cuando** el solicitante confirma
+- **Entonces** el estado cambia a finalizado 
 
 ---
 
-## RF-020
+## RF-016 Historial
+**Característica:** Historial de favores
 
-**Visualización de reputación** 
-
-**Descripción:** 
-El sistema calculará y mostrará automáticamente el promedio de calificaciones en el perfil público de cada usuario. 
-
-**Prioridad:** P3
-
-**Criterios de Aceptación:**
-- Cálculo automático del promedio matemático de estrellas.
-- Actualización del perfil en tiempo real tras cada nueva reseña.
-- Visualización pública de la puntuación en la vista de perfil y solicitudes.
+**Escenario:** Consultar historial
+- **Dado** un usuario autenticado
+- **Cuando** accede a su perfil
+- **Entonces** visualiza sus favores realizados y solicitados
 
 ---
+
+## RF-017 Registro de recompensa
+**Característica:** Registro de pago
+
+**Escenario:** Registrar recompensa
+- **Dado** un favor finalizado
+- **Cuando** se confirma la entrega
+- **Entonces** el sistema registra la transacción
+
+---
+
+## RF-018 Calificar ejecutor
+**Característica:** Calificación del ejecutor
+
+**Escenario:** Calificar servicio
+- **Dado** un favor finalizado
+- **Cuando** el solicitante califica
+- **Entonces** la calificación queda registrada
+
+---
+
+## RF-019 Calificar solicitante
+**Característica:** Calificación del solicitante
+
+**Escenario:** Evaluar solicitante
+- **Dado** un favor finalizado
+- **Cuando** el ejecutor califica
+- **Entonces** la puntuación se guarda
+
+---
+
+## RF-020 Mostrar reputación
+**Característica:** Reputación
+
+**Escenario:** Mostrar promedio
+- **Dado** un usuario con calificaciones
+- **Cuando** otro usuario ve su perfil
+- **Entonces** el sistema muestra el promedio de reputación
