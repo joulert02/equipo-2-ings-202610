@@ -1,6 +1,6 @@
 # Requisitos funcionales - FavUPB
 
-## Gestión de usuario
+## Gestión de usuarios
 
 ---
 
@@ -75,3 +75,75 @@ El sistema deberá permitir visualizar el perfil público de otros usuarios regi
 - El sistema muestra únicamente la información pública del perfil.
 - El sistema no permite modificar información de otros usuarios.
 - La información se presenta de forma clara y ordenada.
+
+---
+
+## RF-005
+
+**Título:** Creación de solicitud de favor
+
+**Descripción:**
+El sistema deberá permitir al usuario crear una solicitud de favor ingresando una descripción, una ubicación aproximada y la recompensa económica ofrecida.
+
+**Prioridad:** P0
+
+**Criterios de aceptación:**
+
+- El usuario puede ingresar una descripción obligatoria del favor.
+- El usuario puede especificar una ubicación aproximada.
+- El usuario debe ingresar un valor de recompensa económica válido.
+- La solicitud queda visible para otros usuarios después de ser publicada.
+
+---
+
+## RF-006
+
+**Título:** Adjuntar imágenes a la solicitud
+
+**Descripción:**
+El sistema deberá permitir al usuario adjuntar una o más imágenes a la solicitud de favor para complementar la descripción.
+
+**Prioridad:** P1
+
+**Criterios de aceptación:**
+
+- El usuario puede seleccionar imágenes desde el dispositivo móvil.
+- Las imágenes se cargan correctamente junto con la solicitud.
+- Otros usuarios pueden visualizar las imágenes asociadas al favor.
+- El sistema rechaza archivos que no sean imágenes.
+
+---
+
+## RF-007
+
+**Título:** Definición de tiempo límite del favor
+
+**Descripción:**
+El sistema deberá permitir al usuario establecer un tiempo límite para la realización del favor solicitado.
+
+**Prioridad:** P1
+
+**Criterios de aceptación:**
+
+- El usuario puede seleccionar fecha y hora límite.
+- El tiempo límite debe ser posterior al momento de creación.
+- El tiempo límite se muestra a los usuarios que visualizan la solicitud.
+- Una solicitud expirada no puede ser aceptada.
+
+---
+
+## RF-008
+
+**Título:** Cancelación de solicitud de favor
+
+**Descripción:**
+El sistema deberá permitir al solicitante cancelar una solicitud de favor siempre que esta no haya sido aceptada por otro usuario.
+
+**Prioridad:** P0
+
+**Criterios de aceptación:**
+
+- El solicitante puede cancelar la solicitud desde la aplicación.
+- La solicitud deja de aparecer en la lista de favores disponibles.
+
+---
