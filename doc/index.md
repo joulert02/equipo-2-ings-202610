@@ -3,6 +3,7 @@
 | Archivo | Descripción |
 | :--- | :--- |
 | 📂 [doc/analysis/index.md](analysis/index.md) | Requisitos funcionales y no funcionales |
+| 📂 [doc/design](design/) | Diseños visuales, wireframes UX, diagramas UML y decisiones del stack tecnológico.|
 
 
 # Documentacion
