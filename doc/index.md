@@ -1,8 +1,8 @@
 ## Navegación de la documentación
 
-| Carpeta | Descripción |
+| Archivo | Descripción |
 | :--- | :--- |
-| 📂 [doc/analysis/index.md](analysis/index.md) | Contexto, alcance, requerimientos y análisis del problema. |
+| 📂 [doc/analysis/index.md](analysis/index.md) | Requisitos funcionales y no funcionales |
 
 
 # Documentacion
