@@ -2,7 +2,7 @@
 
 | Carpeta | Descripción |
 | :--- | :--- |
-| 📂 [doc/analysis](analysis/) | Contexto, alcance, requerimientos y análisis del problema. |
+| 📂 [doc/analysis/index.md](analysis/index.md) | Contexto, alcance, requerimientos y análisis del problema. |
 
 
 # Documentacion
