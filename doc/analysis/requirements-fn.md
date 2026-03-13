@@ -5,17 +5,17 @@
 
 **Característica:** Registro de usuario
 
-**Descripcion:** El sistema deberá permitir a un usuario registrarse mediante un correo electrónico y una contraseña para crear una cuenta dentro de la plataforma.
+**Descripcion:** El sistema deberá permitir a un usuario registrarse mediante un número de teléfono y una contraseña para crear una cuenta dentro de la plataforma.
 
 **Escenario:** Registro exitoso
 - **Dado** un usuario sin cuenta en la plataforma
-- **Cuando** ingresa un correo válido y una contraseña válida
+- **Cuando** ingresa un numero de teléfono válido y una contraseña válida
 - **Entonces** el sistema crea la cuenta
 - **Y** muestra confirmación de registro
 
-**Escenario:** Correo ya existente
-- **Dado** un usuario registrado con un correo existente
-- **Cuando** intenta registrarse nuevamente con el mismo correo
+**Escenario:** Número ya existente
+- **Dado** un usuario registrado con un número de teléfono existente
+- **Cuando** intenta registrarse nuevamente con el mismo número
 - **Entonces** el sistema rechaza el registro
 - **Y** muestra un mensaje de error
 
@@ -125,17 +125,17 @@
 
 ---
 
-## RF-009 Ver favores cercanos
-**Prioridad:** P2
+## RF-009 Ver favores disponibles
+**Prioridad:** P0
 
-**Característica:** Favores cercanos
+**Característica:** Favores disponibles
 
-**Descripcion:** El sistema deberá mostrar un listado de favores disponibles que se encuentren en una ubicación cercana a la posición actual del usuario.
+**Descripcion:** El sistema deberá mostrar un listado de favores disponibles que puedan ser realizados por el usuario ejecutor.
 
 **Escenario:** Mostrar favores disponibles
-- **Dado** el usuario permite acceso a ubicación
+- **Dado** el usuario abre la aplicación
 - **Cuando** abre la pantalla de exploración
-- **Entonces** el sistema muestra favores cercanos disponibles
+- **Entonces** el sistema muestra favores disponibles
 
 ---
 
@@ -163,7 +163,7 @@
 **Escenario:** Aceptación exitosa
 - **Dado** un favor disponible
 - **Cuando** un usuario lo acepta
-- **Entonces** el sistema lo asigna al usuario
+- **Entonces** el sistema lo asigna al usuario.
 
 ---
 
@@ -181,17 +181,17 @@
 
 ---
 
-## RF-013 Chat del favor
-**Prioridad:** P0
+## RF-013 Comunicación
+**Prioridad:** P1
 
 **Característica:** Mensajería
 
-**Descripcion:** El sistema deberá permitir la comunicación básica entre el solicitante y el ejecutor mediante un módulo de mensajería dentro de la plataforma, asociado a cada favor aceptado.
+**Descripcion:** Cuando el favor sea aceptado por alguien, el sistema deberá permitir que los involucrados puedan ver su información de contacto (número de teléfono).
 
 **Escenario:** Comunicación entre usuarios
 - **Dado** un favor aceptado
-- **Cuando** un usuario envía un mensaje
-- **Entonces** el otro usuario puede leerlo
+- **Cuando** un usuario guarda y llama al celular
+- **Entonces** el otro usuario puede responder
 
 ---
 
