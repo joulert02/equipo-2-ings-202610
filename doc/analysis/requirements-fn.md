@@ -163,7 +163,7 @@
 **Escenario:** Aceptación exitosa
 - **Dado** un favor disponible
 - **Cuando** un usuario lo acepta
-- **Entonces** el sistema lo asigna al usuario.
+- **Entonces** el sistema lo asigna al usuario
 
 ---
 

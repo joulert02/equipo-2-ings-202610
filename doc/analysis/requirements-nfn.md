@@ -144,7 +144,7 @@ El proyecto deberá mantener una estructura clara que facilite su comprensión y
 
 ---
 
-## RNF-010 -- FbPts: 5
+## RNF-010
 
 **Título:** Diseño con enfoque "Mobile First"
 
