@@ -25,7 +25,7 @@
 ![Confirmar Favor](confirmar-favor.png)
 
 ## Calificación
-![Calificación](calificación.png)
+![Calificación](calificacion.png)
 
 ## Perfil de Usuario
 ![Perfil de Usuario](perfil.png)
