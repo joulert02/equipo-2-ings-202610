@@ -146,14 +146,14 @@ El proyecto deberá mantener una estructura clara que facilite su comprensión y
 
 ## RNF-010
 
-**Título:** Compatibilidad de dispositivos  
+**Título:** Diseño con enfoque "Mobile First"
 
 **Descripción:**  
-La aplicación deberá funcionar en dispositivos Android e iOS que utilicen versiones recientes de sus sistemas operativos.
+La aplicación deberá poder verse bien en cualquier navegador de cualquier dispositivo Android o iOS.
 
-**Prioridad:** P2  
+**Prioridad:** P1  
 
 **Criterios de aceptación:**
-- La aplicación se instala correctamente en Android.
-- La aplicación se instala correctamente en iOS.
-- Las funcionalidades principales operan sin errores en ambos sistemas.
+- La aplicación se ve correctamente en Android.
+- La aplicación se ve correctamente en iOS.
+- Las funcionalidades principales operan sin errores.
