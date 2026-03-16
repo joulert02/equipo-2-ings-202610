@@ -92,4 +92,4 @@ Para complementar el desarrollo con React se utilizarán las siguientes herramie
 Se utilizará para diseñar la apariencia de la aplicación de forma rápida y lograr una interfaz moderna y adaptable a diferentes tamaños de pantalla.
 
 **Vite:**
-Será la herramienta utilizada para ejecutar y construir el proyecto durante el desarrollo. Permite que la aplicación se cargue rápidamente y mejora la experiencia de desarrollo.
+Será la herramienta utilizada para ejecutar y construir el proyecto durante el desarrollo. Permite que la aplicación se cargue rápidamente y mejora la experiencia de desarrollo.gi
