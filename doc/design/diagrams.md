@@ -1,3 +1,6 @@
 ## Diagrama adhoc
-- [Diagrama a dhoc](./imagenes/Diagrama-adhoc.png)
+- [Diagrama Ad-hoc](./imagenes/Diagrama-adhoc.png)
 
+## Diagrama de Secuencia
+- [DS-Registro e Inicio de Sesión](./imagenes/DS-1.png)
+- [DS-Crear Solicitud de Favor](./imagenes/DS-2.png)
