@@ -11,3 +11,7 @@
 ## Diagrama de Casos de Uso
 
 ![alt text](./imagenes/DCasosDeUso.png)
+
+## Diagrama de modelo relacional
+
+![alt text](./imagenes/DiagramaModeloRelacionalGrande.png)
