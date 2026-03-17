@@ -1,3 +1,6 @@
+## Diagrama de componentes
+![alt text](imagenes/diagrama-componentes.png)
+=======
 ## Diagrama adhoc
 - [Diagrama Ad-hoc](./imagenes/Diagrama-adhoc.png)
 
