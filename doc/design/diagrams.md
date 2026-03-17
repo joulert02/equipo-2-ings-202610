@@ -1,2 +1,2 @@
 ## Diagrama a dhoc
-![Diagrama a dhoc ](Diagrama-adhoc.png)
+- [Diagrama a dhoc ](./Diagrama-adhoc.png)
