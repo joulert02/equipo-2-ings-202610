@@ -1,31 +1,31 @@
 # Wireframes
 
 ## Inicio de Sesión (Login)
-![Pantalla de Inicio de Sesión](login.png)
+![Pantalla de Inicio de Sesión](imagenes/login.png)
 
 ## Registro de Usuario
-![Pantalla de Registro](register.png)
+![Pantalla de Registro](imagenes/register.png)
 
 ## Pantalla Principal (Home)
-![Pantalla Principal](home.png)
+![Pantalla Principal](imagenes/home.png)
 
 ## Detalles del Favor
-![Detalles del Favor](detalles-favor.png)
+![Detalles del Favor](imagenes/detalles-favor.png)
 
 ## Crear Solicitud de Favor
-![Crear Favor](crear-favor.png)
+![Crear Favor](imagenes/crear-favor.png)
 
 ## Chat
-![Chat](chat.png)
+![Chat](imagenes/chat.png)
 
 ## Favor en Progreso
-![Favor en Progreso](favor-progress.png)
+![Favor en Progreso](imagenes/favor-progress.png)
 
 ## Confirmación de Favor
-![Confirmar Favor](confirmar-favor.png)
+![Confirmar Favor](imagenes/confirmar-favor.png)
 
 ## Calificación
-![Calificación](calificacion.png)
+![Calificación](imagenes/calificacion.png)
 
 ## Perfil de Usuario
-![Perfil de Usuario](perfil.png)
+![Perfil de Usuario](imagenes/perfil.png)
