@@ -1,6 +1,6 @@
 ## Diagrama de componentes
-![alt text](imagenes/diagrama-componentes.png)
-=======
+![alt text](./imagenes/DiagramaComponentes.png)
+
 ## Diagrama Adhoc
  ![alt text](./imagenes/Diagrama-adhoc.png)
 
