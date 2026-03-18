@@ -1,32 +1,33 @@
 ## Wireframes
+[Figma - Flujo](https://www.figma.com/design/B3BCN2iu4j3visEaD7vHdr/Dise%C3%B1os-UX---UI?node-id=0-1&p=f&t=B35rh2fDxt58N2aw-0)
 
 ## Inicio de sesion (Login)
-![Pantalla de Inicio de Sesión](LoginUI.png)
+![Pantalla de Inicio de Sesión](imagenes/LoginUI.png)
 
 ## Registro de Usuario
-![Pantalla de Registro](RegistrousuarioUI.png)
+![Pantalla de Registro](imagenes/RegistrousuarioUI.png)
                 
 ## Pantalla Principal(Home)
-![Pantalla Principal](HomeUI.png)
+![Pantalla Principal](imagenes/HomeUI.png)
 
 ## Detalles del Favor
-![Detalles del Favor](Detalle-FavorUI.png)
+![Detalles del Favor](imagenes/Detalle-FavorUI.png)
 
 ## Crear Solicitud de Favor
-![Crear Favor](Crea-favorUI.png)
+![Crear Favor](imagenes/Crea-favorUI.png)
 
 ## Chat
-![Chat](ChatUI.png)
+![Chat](imagenes/ChatUI.png)
 
 ## Favor en Progreso
-![Favor en Proceso](favor-progressUI.png)
+![Favor en Proceso](imagenes/favor-progressUI.png)
 
 ## Confirmación de Favor
-![Confirmar Favor](Confirmar-favorUI.png)
+![Confirmar Favor](imagenes/Confirmar-favorUI.png)
 
 ## Calificacion
-![Calificacion](CalificacionUI.png)
+![Calificacion](imagenes/CalificacionUI.png)
 
 ## Perfil
-![Perfil](PerfilUI.png)
+![Perfil](imagenes/PerfilUI.png)
 
