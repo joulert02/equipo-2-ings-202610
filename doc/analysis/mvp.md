@@ -23,4 +23,4 @@
 - (3 puntos) RNF-009 - Mantenibilidad del codigo
 - (5 puntos) RNF-010 - Diseño con enfoque "Mobile First"
 
-**Total Puntos: 70**
+**Total Puntos: 73**
