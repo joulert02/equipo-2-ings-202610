@@ -16,6 +16,8 @@ export default function CreateFavorModal({ onClose, onCreated }) {
     resolver: yupResolver(schema),
   });
 
+  // Valida los datos del formulario usando Yup. Si pasan validaciones, crea el nuevo favor,
+  // cierra el modal y actualiza el feed.
   async function onSubmit(data) {
     try {
       const favor = await createFavor(data);

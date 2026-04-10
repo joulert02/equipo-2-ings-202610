@@ -1,9 +1,7 @@
 import prisma from "../lib/prisma.js";
 
-/**
- * RF-009 — Ver favores disponibles
- * GET /api/favors
- */
+// Obtiene todos los favores disponibles para el feed, ordenados por fecha (más recientes primero).
+// Incluye información del solicitante en cada favor.
 export async function getFavors(_req, res) {
   try {
     const favors = await prisma.favor.findMany({
@@ -20,10 +18,8 @@ export async function getFavors(_req, res) {
   }
 }
 
-/**
- * RF-005 — Crear solicitud de favor
- * POST /api/favors
- */
+// Valida datos requeridos, verifica que la recompensa sea positiva, valida el deadline, y crea
+// el favor asignando el ID del usuario autenticado como solicitante.
 export async function createFavor(req, res) {
   const { title, description, location, reward, deadline } = req.body;
 
@@ -60,10 +56,8 @@ export async function createFavor(req, res) {
   }
 }
 
-/**
- * RF-008 — Cancelar solicitud
- * PATCH /api/favors/:id/cancel
- */
+// Cancela un favor si el usuario es el solicitante y el favor aún está disponible.
+// Valida permisos y estado antes de actualizar a CANCELLED.
 export async function cancelFavor(req, res) {
   const favorId = parseInt(req.params.id);
 

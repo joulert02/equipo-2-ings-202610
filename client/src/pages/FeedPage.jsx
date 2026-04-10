@@ -10,6 +10,7 @@ export default function FeedPage() {
 
   useEffect(() => { loadFavors(); }, []);
 
+  // Carga la lista de favores desde el servidor, maneja estados de carga y muestra errores al usuario.
   async function loadFavors() {
     setLoading(true);
     try {
@@ -21,6 +22,7 @@ export default function FeedPage() {
     }
   }
 
+  // Cancela un favor con confirmación previa. Si es exitoso, lo elimina del feed; si falla, muestra el error.
   async function handleCancel(id) {
     if (!confirm("¿Cancelar esta solicitud?")) return;
     try {

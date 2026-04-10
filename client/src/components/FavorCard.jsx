@@ -1,3 +1,5 @@
+// Renderiza una tarjeta individual de favor mostrando título, descripción, ubicación, recompensa,
+// plazo y solicitante. Solo muestra botón cancelar si el usuario actual es el solicitante.
 export default function FavorCard({ favor, onCancel }) {
   const CURRENT_USER_ID = 1;
 
