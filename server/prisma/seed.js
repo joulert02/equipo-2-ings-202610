@@ -13,6 +13,13 @@ async function main() {
     },
   });
   console.log("Seed OK — usuario de prueba creado con id=1");
+
+  await prisma.user.upsert({
+    where: { phone: "3002222222" },
+    update: {},
+    create: { id: 2, name: "Usuario Ejecutor", phone: "3002222222" },
+  });
+
 }
 
 main()

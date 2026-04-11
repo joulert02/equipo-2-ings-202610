@@ -1,8 +1,6 @@
-// Renderiza una tarjeta individual de favor mostrando título, descripción, ubicación, recompensa,
-// plazo y solicitante. Solo muestra botón cancelar si el usuario actual es el solicitante.
-export default function FavorCard({ favor, onCancel }) {
-  const CURRENT_USER_ID = 1;
-
+export default function FavorCard({ favor, onCancel, onAccept }) {
+  const CURRENT_USER_ID = 2;
+  const isOwner   = favor.requesterId === CURRENT_USER_ID;
   const isExpired = favor.deadline && new Date(favor.deadline) < new Date();
 
   return (
@@ -27,14 +25,24 @@ export default function FavorCard({ favor, onCancel }) {
         <span>👤 {favor.requester?.name}</span>
       </div>
 
-      {favor.requesterId === CURRENT_USER_ID && (
-        <button
-          onClick={() => onCancel(favor.id)}
-          className="mt-2 w-full text-sm text-red-500 border border-red-200 rounded-xl py-2 hover:bg-red-50 transition-colors"
-        >
-          Cancelar solicitud
-        </button>
-      )}
+      <div className="flex gap-2 mt-2">
+        {isOwner && (
+          <button
+            onClick={() => onCancel(favor.id)}
+            className="flex-1 text-sm text-red-500 border border-red-200 rounded-xl py-2 hover:bg-red-50 transition-colors"
+          >
+            Cancelar solicitud
+          </button>
+        )}
+        {!isOwner && !isExpired && (
+          <button
+            onClick={() => onAccept(favor.id)}
+            className="flex-1 text-sm text-white bg-emerald-500 rounded-xl py-2 hover:bg-emerald-600 transition-colors font-medium"
+          >
+            ✅ Aceptar favor
+          </button>
+        )}
+      </div>
     </article>
   );
 }

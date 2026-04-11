@@ -11,3 +11,11 @@ export const createFavor = (data) => api.post("/favors", data).then((r) => r.dat
 
 // Realiza PATCH a /favors/:id/cancel para cancelar un favor existente.
 export const cancelFavor = (id) => api.patch(`/favors/${id}/cancel`).then((r) => r.data);
+
+// TODO: Redactar comentario, Realiza "tin" a "tan" para aceptar un favor
+export const acceptFavor = (id) => api.patch(`/favors/${id}/accept`).then((r) => r.data);
+
+/**
+ * Obtener favores aceptados por el ejecutor actual
+ */
+export const getMyAcceptedFavors = () => api.get("/favors/accepted").then((r) => r.data);
