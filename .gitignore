@@ -1,1 +1,9 @@
 .vscode/
+# Environment variables
+server/.env
+client/.env
+
+# Dependencies
+node_modules/
+server/node_modules/
+client/node_modules/
