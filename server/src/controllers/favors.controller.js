@@ -87,3 +87,28 @@ export async function cancelFavor(req, res) {
     res.status(500).json({ message: "Error al cancelar el favor" });
   }
 }
+// Confirma la finalización de un favor si el usuario es el helper
+// y el favor está en estado IN_PROGRESS.
+export async function confirmFavorCompletion(req, res) {
+ const favorId = parseInt(req.params.id);
+ try {
+   const favor = await prisma.favor.findUnique({ where: { id: favorId } });
+   if (!favor) {
+     return res.status(404).json({ message: "Favor no encontrado" });
+   }
+   if (favor.helperId !== req.user.id) {
+     return res.status(403).json({ message: "Solo el helper puede confirmar la finalización" });
+   }
+   if (favor.status !== "IN_PROGRESS") {
+     return res.status(409).json({ message: "Solo se puede confirmar un favor que esté en progreso" });
+   }
+   const updated = await prisma.favor.update({
+     where: { id: favorId },
+     data: { status: "COMPLETED" },
+   });
+   res.json(updated);
+ } catch (error) {
+   console.error("confirmFavorCompletion:", error);
+   res.status(500).json({ message: "Error al confirmar la finalización" });
+ }
+}

@@ -11,3 +11,6 @@ export const createFavor = (data) => api.post("/favors", data).then((r) => r.dat
 
 // Realiza PATCH a /favors/:id/cancel para cancelar un favor existente.
 export const cancelFavor = (id) => api.patch(`/favors/${id}/cancel`).then((r) => r.data);
+
+// Realiza PATCH a /favors/:id/confirm para confirmar la finalización de un favor.
+export const confirmFavorCompletion = (id) => api.patch(`/favors/${id}/confirm`).then((r) => r.data);   
