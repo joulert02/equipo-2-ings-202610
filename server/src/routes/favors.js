@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { fakeAuth } from "../middleware/fakeAuth.js";
+import { authenticate } from "../middleware/authenticate.js";
 import { getFavors, createFavor, cancelFavor } from "../controllers/favors.controller.js";
 
 const router = Router();
 
-router.get("/", fakeAuth, getFavors);              
-router.post("/", fakeAuth, createFavor);            
-router.patch("/:id/cancel", fakeAuth, cancelFavor); 
+router.get("/", authenticate, getFavors);
+router.post("/", authenticate, createFavor);
+router.patch("/:id/cancel", authenticate, cancelFavor); 
 
 export default router;
