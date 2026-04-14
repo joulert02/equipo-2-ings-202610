@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate, Link } from "react-router-dom";
 import FeedPage from "./pages/FeedPage.jsx";
+import MyFavorsPage from "./pages/MyFavorsPage.jsx";
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
 
     <Routes>
       <Route path="/feed" element={<FeedPage />} />
+      <Route path="/my-favors" element={<MyFavorsPage />} />
       <Route path="*" element={<Navigate to="/feed" replace />} />
     </Routes>
     </>
