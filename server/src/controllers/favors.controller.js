@@ -119,3 +119,30 @@ export async function cancelFavor(req, res) {
     res.status(500).json({ message: "Error al completar el favor" });
   }
 }
+
+// RF-011: Aceptar un favor (Lógica del compañero)
+export async function acceptFavor(req, res) {
+  const favorId = parseInt(req.params.id);
+  try {
+    const favor = await prisma.favor.findUnique({ where: { id: favorId } });
+
+    if (!favor) return res.status(404).json({ message: "Favor no encontrado" });
+    
+    if (favor.requesterId === req.user.id) {
+      return res.status(400).json({ message: "No puedes aceptar tu propio favor" });
+    }
+
+    const updated = await prisma.favor.update({
+      where: { id: favorId },
+      data: { 
+        status: "ACCEPTED",
+        executorId: req.user.id // Aquí se asigna quién lo va a hacer
+      },
+    });
+
+    res.json(updated);
+  } catch (error) {
+    console.error("acceptFavor:", error);
+    res.status(500).json({ message: "Error al aceptar el favor" });
+  }
+}
