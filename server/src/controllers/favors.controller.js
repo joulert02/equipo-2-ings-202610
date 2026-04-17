@@ -1,7 +1,11 @@
 import prisma from "../lib/prisma.js";
 
-// Obtiene todos los favores disponibles para el feed, ordenados por fecha (más recientes primero).
-// Incluye información del solicitante en cada favor.
+/**
+ * Obtiene todos los favores disponibles para mostrar en el feed.
+ * - Filtra únicamente los que están en estado "AVAILABLE"
+ * - Los ordena desde el más reciente al más antiguo
+ * - Incluye información básica del usuario que creó el favor
+ */
 export async function getFavors(_req, res) {
   try {
     const favors = await prisma.favor.findMany({
@@ -11,6 +15,7 @@ export async function getFavors(_req, res) {
         requester: { select: { id: true, name: true } },
       },
     });
+
     res.json(favors);
   } catch (error) {
     console.error("getFavors:", error);
@@ -18,21 +23,32 @@ export async function getFavors(_req, res) {
   }
 }
 
-// Valida datos requeridos, verifica que la recompensa sea positiva, valida el deadline, y crea
-// el favor asignando el ID del usuario autenticado como solicitante.
+/**
+ * Crea un nuevo favor en el sistema.
+ * - Valida que los campos obligatorios estén presentes
+ * - Verifica que la recompensa sea mayor a 0
+ * - Valida que la fecha límite sea futura (si se proporciona)
+ * - Asocia el favor al usuario autenticado
+ */
 export async function createFavor(req, res) {
   const { title, description, location, reward, deadline } = req.body;
 
   if (!title || !description || !location || reward === undefined) {
-    return res.status(400).json({ message: "title, description, location y reward son obligatorios" });
+    return res.status(400).json({
+      message: "title, description, location y reward son obligatorios",
+    });
   }
 
   if (reward <= 0) {
-    return res.status(400).json({ message: "La recompensa debe ser mayor a 0" });
+    return res.status(400).json({
+      message: "La recompensa debe ser mayor a 0",
+    });
   }
 
   if (deadline && new Date(deadline) <= new Date()) {
-    return res.status(400).json({ message: "La fecha límite debe ser futura" });
+    return res.status(400).json({
+      message: "La fecha límite debe ser futura",
+    });
   }
 
   try {
@@ -49,6 +65,7 @@ export async function createFavor(req, res) {
         requester: { select: { id: true, name: true } },
       },
     });
+
     res.status(201).json(favor);
   } catch (error) {
     console.error("createFavor:", error);
@@ -56,8 +73,13 @@ export async function createFavor(req, res) {
   }
 }
 
-// Cancela un favor si el usuario es el solicitante y el favor aún está disponible.
-// Valida permisos y estado antes de actualizar a CANCELLED.
+/**
+ * Cancela un favor existente.
+ * - Verifica que el favor exista
+ * - Valida que el usuario autenticado sea el creador del favor
+ * - Solo permite cancelar si el favor sigue disponible
+ * - Cambia el estado a "CANCELLED"
+ */
 export async function cancelFavor(req, res) {
   const favorId = parseInt(req.params.id);
 
@@ -69,11 +91,15 @@ export async function cancelFavor(req, res) {
     }
 
     if (favor.requesterId !== req.user.id) {
-      return res.status(403).json({ message: "Solo el solicitante puede cancelar este favor" });
+      return res.status(403).json({
+        message: "Solo el solicitante puede cancelar este favor",
+      });
     }
 
     if (favor.status !== "AVAILABLE") {
-      return res.status(409).json({ message: "Solo se puede cancelar un favor que aún no ha sido aceptado" });
+      return res.status(409).json({
+        message: "Solo se puede cancelar un favor que aún no ha sido aceptado",
+      });
     }
 
     const updated = await prisma.favor.update({
@@ -87,9 +113,17 @@ export async function cancelFavor(req, res) {
     res.status(500).json({ message: "Error al cancelar el favor" });
   }
 }
-// Marca un favor como completado si el usuario es el solicitante
- export async function markFavorAsCompleted(req, res) {
+
+/**
+ * Marca un favor como completado.
+ * - Verifica que el favor exista
+ * - Solo el usuario asignado como ejecutor puede completarlo
+ * - El favor debe estar en estado "ACCEPTED"
+ * - Actualiza el estado a "COMPLETED"
+ */
+export async function markFavorAsCompleted(req, res) {
   const favorId = parseInt(req.params.id);
+
   try {
     const favor = await prisma.favor.findUnique({ where: { id: favorId } });
 
@@ -97,15 +131,16 @@ export async function cancelFavor(req, res) {
       return res.status(404).json({ message: "Favor no encontrado" });
     }
 
-    // CAMBIO 1: Validar contra executorId, no requesterId
-    // El ejecutor es quien dice "ya terminé"
     if (favor.executorId !== req.user.id) {
-      return res.status(403).json({ message: "Solo el ejecutor asignado puede completar este favor" });
+      return res.status(403).json({
+        message: "Solo el ejecutor asignado puede completar este favor",
+      });
     }
 
-    // CAMBIO 2: El estado debe ser "ACCEPTED"
-    if (favor.status !== "ACCEPTED") {
-      return res.status(409).json({ message: "Solo se puede completar un favor que haya sido aceptado" });
+     if (favor.status !== "ACCEPTED") {
+      return res.status(409).json({
+        message: "Solo se puede completar un favor que haya sido aceptado",
+      });
     }
 
     const updated = await prisma.favor.update({
@@ -118,31 +153,4 @@ export async function cancelFavor(req, res) {
     console.error("markFavorAsCompleted:", error);
     res.status(500).json({ message: "Error al completar el favor" });
   }
-}
-
-// RF-011: Aceptar un favor (Lógica del compañero)
-export async function acceptFavor(req, res) {
-  const favorId = parseInt(req.params.id);
-  try {
-    const favor = await prisma.favor.findUnique({ where: { id: favorId } });
-
-    if (!favor) return res.status(404).json({ message: "Favor no encontrado" });
-    
-    if (favor.requesterId === req.user.id) {
-      return res.status(400).json({ message: "No puedes aceptar tu propio favor" });
-    }
-
-    const updated = await prisma.favor.update({
-      where: { id: favorId },
-      data: { 
-        status: "ACCEPTED",
-        executorId: req.user.id // Aquí se asigna quién lo va a hacer
-      },
-    });
-
-    res.json(updated);
-  } catch (error) {
-    console.error("acceptFavor:", error);
-    res.status(500).json({ message: "Error al aceptar el favor" });
-  }
-}
+ }
