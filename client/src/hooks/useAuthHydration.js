@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useAuthStore } from "../stores/authStore.js";
 
 /**
- * True once zustand persist has finished rehydrating from storage.
- * Auth decisions (redirects, token checks) should wait for this to avoid
- * reading null before localStorage has been merged into the store.
+ * Es verdadero una vez que la persistencia de zustand ha terminado de rehidratarse desde el almacenamiento.
+ * Las decisiones de auth (redirecciones, chequeos de token) deben esperar a esto para evitar
+ * leer null antes de que el localStorage se haya fusionado con la tienda.
  */
 export function useAuthHydration() {
   const [hydrated, setHydrated] = useState(() => useAuthStore.persist.hasHydrated());

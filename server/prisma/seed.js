@@ -1,16 +1,18 @@
+import "dotenv/config";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
-/** Contraseña del usuario de desarrollo (tel. 3001234567). Documentada en README. */
-const DEV_PASSWORD = "dev123456";
+/** Configuración de usuario de desarrollo desde .env */
+const DEV_PHONE = process.env.SEED_USER_PHONE || "3001234567";
+const DEV_PASSWORD = process.env.SEED_USER_PASSWORD || "dev123456";
 
 async function main() {
   const passwordHash = await bcrypt.hash(DEV_PASSWORD, 10);
 
   await prisma.user.upsert({
-    where: { phone: "3001234567" },
+    where: { phone: DEV_PHONE },
     update: {
       name: "Usuario Test",
       passwordHash,
@@ -18,11 +20,11 @@ async function main() {
     create: {
       id: 1,
       name: "Usuario Test",
-      phone: "3001234567",
+      phone: DEV_PHONE,
       passwordHash,
     },
   });
-  console.log("Seed OK — usuario de prueba: tel 3001234567, contraseña en README");
+  console.log(`Seed OK — usuario de prueba: tel ${DEV_PHONE}, contraseña en .env`);
 }
 
 main()

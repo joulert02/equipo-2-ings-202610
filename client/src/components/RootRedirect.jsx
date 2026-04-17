@@ -3,8 +3,8 @@ import { useAuthHydration } from "../hooks/useAuthHydration.js";
 import { useAuthStore } from "../stores/authStore.js";
 
 /**
- * Waits for auth persistence to hydrate, then sends the user to /feed or /login.
- * Avoids redirecting through /feed when there is no session (extra hop and flash).
+ * Espera a que la persistencia de autenticación se hidrate, luego redirige al usuario a /feed o /login.
+ * Evita redirigir a /feed cuando no hay sesión (ahorrando un salto extra y el parpadeo de la UI).
  */
 export default function RootRedirect() {
   const hydrated = useAuthHydration();

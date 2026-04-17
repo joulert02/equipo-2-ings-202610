@@ -90,7 +90,7 @@ El servidor estará disponible en `http://localhost:3000` (o el puerto configura
 | **POST** | `/api/favors` | Crear favor (requiere autenticación) |
 | **PATCH** | `/api/favors/:id/cancel` | Cancelar favor (requiere autenticación) |
 
-Tras `npx prisma db seed`, el usuario de prueba usa el teléfono **3001234567** y la contraseña **dev123456** (solo desarrollo).
+Tras `npx prisma db seed`, el usuario de prueba usa el teléfono y contraseña configurados en el archivo `.env` (solo desarrollo).
 
 ---
 
