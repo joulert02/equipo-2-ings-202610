@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { getFavors, cancelFavor } from "../api/favors.js";
+import {useNavigate} from "react-router-dom";
+import { getFavors, cancelFavor, acceptFavor } from "../api/favors.js";
 import FavorCard from "../components/FavorCard.jsx";
 import CreateFavorModal from "../components/CreateFavorModal.jsx";
 import { useAuthStore } from "../stores/authStore.js";
@@ -43,6 +43,16 @@ export default function FeedPage() {
     }
   }
 
+  // Acepta un favor. Si es exitoso, lo elimina del feed (ya no está disponible); si falla, muestra el error.
+  async function handleAccept(id) {
+    try {
+      await acceptFavor(id);
+      setFavors((prev) => prev.filter((f) => f.id !== id));
+    } catch (e) {
+      alert(e.response?.data?.message || "Error al aceptar");
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white border-b border-gray-100 px-4 py-4 flex items-center justify-between sticky top-0 z-10 gap-2">
@@ -80,7 +90,7 @@ export default function FeedPage() {
           </p>
         )}
         {favors.map((favor) => (
-          <FavorCard key={favor.id} favor={favor} onCancel={handleCancel} />
+          <FavorCard key={favor.id} favor={favor} onCancel={handleCancel} onAccept={handleAccept} />
         ))}
       </main>
 
