@@ -1,5 +1,9 @@
 import { Routes, Route, Navigate, Link } from "react-router-dom";
 import FeedPage from "./pages/FeedPage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+import RegisterPage from "./pages/RegisterPage.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import RootRedirect from "./components/RootRedirect.jsx";
 import MyFavorsPage from "./pages/MyFavorsPage.jsx";
 
 export default function App() {
@@ -12,6 +16,18 @@ export default function App() {
       </nav>
 
     <Routes>
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route
+        path="/feed"
+        element={
+          <ProtectedRoute>
+            <FeedPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route path="/" element={<RootRedirect />} />
+      <Route path="*" element={<RootRedirect />} />
       <Route path="/feed" element={<FeedPage />} />
       <Route path="/my-favors" element={<MyFavorsPage />} />
       <Route path="*" element={<Navigate to="/feed" replace />} />

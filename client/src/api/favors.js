@@ -1,6 +1,4 @@
-import axios from "axios";
-
-const api = axios.create({ baseURL: "/api" });
+import { api } from "./client.js";
 
 // Realiza GET a /favors para obtener lista de favores disponibles.
 export const getFavors = () => api.get("/favors").then((r) => r.data);

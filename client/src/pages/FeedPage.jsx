@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
+import {useNavigate} from "react-router-dom";
 import { getFavors, cancelFavor, acceptFavor } from "../api/favors.js";
 import FavorCard from "../components/FavorCard.jsx";
 import CreateFavorModal from "../components/CreateFavorModal.jsx";
+import { useAuthStore } from "../stores/authStore.js";
 
 export default function FeedPage() {
+  const navigate = useNavigate();
+  const logout = useAuthStore((s) => s.logout);
+  const userName = useAuthStore((s) => s.user?.name);
   const [favors, setFavors]       = useState([]);
   const [loading, setLoading]     = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -15,7 +20,12 @@ export default function FeedPage() {
     setLoading(true);
     try {
       setFavors(await getFavors());
-    } catch {
+    } catch (e) {
+      if (e.response?.status === 401) {
+        logout();
+        navigate("/login", { replace: true });
+        return;
+      }
       alert("No se pudieron cargar los favores");
     } finally {
       setLoading(false);
@@ -45,14 +55,29 @@ export default function FeedPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-white border-b border-gray-100 px-4 py-4 flex items-center justify-between sticky top-0 z-10">
-        <h1 className="font-bold text-gray-800 text-lg">FavUPB</h1>
-        <button
-          onClick={() => setShowModal(true)}
-          className="bg-emerald-500 text-white text-sm font-medium px-4 py-2 rounded-xl hover:bg-emerald-600"
-        >
-          + Publicar favor
-        </button>
+      <header className="bg-white border-b border-gray-100 px-4 py-4 flex items-center justify-between sticky top-0 z-10 gap-2">
+        <div className="min-w-0">
+          <h1 className="font-bold text-gray-800 text-lg">FavUPB</h1>
+          {userName && <p className="text-xs text-gray-500 truncate">{userName}</p>}
+        </div>
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            type="button"
+            onClick={() => {
+              logout();
+              navigate("/login", { replace: true });
+            }}
+            className="text-gray-600 text-sm font-medium px-3 py-2 rounded-xl hover:bg-gray-100"
+          >
+            Cerrar sesión
+          </button>
+          <button
+            onClick={() => setShowModal(true)}
+            className="bg-emerald-500 text-white text-sm font-medium px-4 py-2 rounded-xl hover:bg-emerald-600"
+          >
+            + Publicar favor
+          </button>
+        </div>
       </header>
 
       <main className="max-w-lg mx-auto px-4 py-6 flex flex-col gap-3">
