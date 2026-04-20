@@ -41,14 +41,12 @@ export default function MyFavorsPage() {
               )}
             </div>
 
-            {/* RF-013 — Contacto del solicitante */}
             <div className="mt-2 bg-emerald-50 border border-emerald-100 rounded-xl p-3 text-sm">
               <p className="font-medium text-emerald-800">Contacto del solicitante</p>
               <p className="text-gray-600">👤 {favor.requester?.name}</p>
               <p className="text-gray-600">📞 {favor.requester?.phone}</p>
             </div>
 
-            {/* RF-014 — Marcar como completado */}
             <button
               className="mt-1 w-full text-sm text-white bg-blue-500 rounded-xl py-2 hover:bg-blue-600 transition-colors font-medium"
               onClick={() => alert(`Funcionalidad RF-014 pendiente para favor #${favor.id}`)}

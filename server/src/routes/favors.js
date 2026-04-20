@@ -4,10 +4,10 @@ import { getFavors, createFavor, cancelFavor, acceptFavor, getMyAcceptedFavors }
 
 const router = Router();
 
-router.get("/", fakeAuth, getFavors);              // RF-009
+router.get("/", fakeAuth, getFavors);              
 router.get("/accepted", fakeAuth, getMyAcceptedFavors); 
-router.post("/", fakeAuth, createFavor);            // RF-005
-router.patch("/:id/cancel", fakeAuth, cancelFavor); // RF-008
+router.post("/", fakeAuth, createFavor);            
+router.patch("/:id/cancel", fakeAuth, cancelFavor); 
 router.patch("/:id/accept", fakeAuth, acceptFavor);
 
 export default router;
