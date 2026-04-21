@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import {useNavigate} from "react-router-dom";
-import { getFavors, cancelFavor, acceptFavor } from "../api/favors.js";
+import { useNavigate } from "react-router-dom";
+import { getFavors, cancelFavor, acceptFavor, completeFavor } from "../api/favors.js";
 import FavorCard from "../components/FavorCard.jsx";
 import CreateFavorModal from "../components/CreateFavorModal.jsx";
 import { useAuthStore } from "../stores/authStore.js";
@@ -9,13 +9,15 @@ export default function FeedPage() {
   const navigate = useNavigate();
   const logout = useAuthStore((s) => s.logout);
   const userName = useAuthStore((s) => s.user?.name);
-  const [favors, setFavors]       = useState([]);
-  const [loading, setLoading]     = useState(true);
+
+  const [favors, setFavors] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => { loadFavors(); }, []);
+  useEffect(() => {
+    loadFavors();
+  }, []);
 
-  // Carga la lista de favores desde el servidor, maneja estados de carga y muestra errores al usuario.
   async function loadFavors() {
     setLoading(true);
     try {
@@ -32,7 +34,6 @@ export default function FeedPage() {
     }
   }
 
-  // Cancela un favor con confirmación previa. Si es exitoso, lo elimina del feed; si falla, muestra el error.
   async function handleCancel(id) {
     if (!confirm("¿Cancelar esta solicitud?")) return;
     try {
@@ -43,13 +44,23 @@ export default function FeedPage() {
     }
   }
 
-  // Acepta un favor. Si es exitoso, lo elimina del feed (ya no está disponible); si falla, muestra el error.
   async function handleAccept(id) {
     try {
       await acceptFavor(id);
+      // Al aceptar, el favor cambia de estado y ya no debe estar en el feed público
       setFavors((prev) => prev.filter((f) => f.id !== id));
     } catch (e) {
       alert(e.response?.data?.message || "Error al aceptar");
+    }
+  }
+
+  async function handleComplete(id) {
+    if (!confirm("¿Confirmar que este favor fue completado?")) return;
+    try {
+      await completeFavor(id);
+      setFavors((prev) => prev.filter((f) => f.id !== id));
+    } catch (e) {
+      alert(e.response?.data?.message || "Error al completar");
     }
   }
 
@@ -60,9 +71,9 @@ export default function FeedPage() {
           <h1 className="font-bold text-gray-800 text-lg">FavUPB</h1>
           {userName && <p className="text-xs text-gray-500 truncate">{userName}</p>}
         </div>
+        
         <div className="flex items-center gap-2 shrink-0">
           <button
-            type="button"
             onClick={() => {
               logout();
               navigate("/login", { replace: true });
@@ -81,16 +92,22 @@ export default function FeedPage() {
       </header>
 
       <main className="max-w-lg mx-auto px-4 py-6 flex flex-col gap-3">
-        {loading && (
-          <p className="text-center text-gray-400 text-sm">Cargando favores...</p>
-        )}
+        {loading && <p className="text-center text-gray-400 text-sm">Cargando favores...</p>}
+
         {!loading && favors.length === 0 && (
           <p className="text-center text-gray-400 text-sm mt-12">
-            No hay favores disponibles aún.<br />¡Sé el primero en publicar uno!
+            No hay favores disponibles aún.
           </p>
         )}
+
         {favors.map((favor) => (
-          <FavorCard key={favor.id} favor={favor} onCancel={handleCancel} onAccept={handleAccept} />
+          <FavorCard 
+            key={favor.id} 
+            favor={favor} 
+            onCancel={handleCancel} 
+            onAccept={handleAccept}
+            onComplete={handleComplete}
+          />
         ))}
       </main>
 

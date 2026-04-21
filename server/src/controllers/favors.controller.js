@@ -1,7 +1,8 @@
 import prisma from "../lib/prisma.js";
 
-// Obtiene todos los favores disponibles para el feed, ordenados por fecha (más recientes primero).
-// Incluye información del solicitante en cada favor.
+/**
+ * Obtiene todos los favores disponibles para mostrar en el feed.
+ */
 export async function getFavors(_req, res) {
   try {
     const favors = await prisma.favor.findMany({
@@ -18,23 +19,14 @@ export async function getFavors(_req, res) {
   }
 }
 
-// Valida datos requeridos, verifica que la recompensa sea positiva, valida el deadline, y crea
-// el favor asignando el ID del usuario autenticado como solicitante.
+/**
+ * Crea un nuevo favor en el sistema.
+ */
 export async function createFavor(req, res) {
   const { title, description, location, reward, deadline } = req.body;
-
   if (!title || !description || !location || reward === undefined) {
-    return res.status(400).json({ message: "title, description, location y reward son obligatorios" });
+    return res.status(400).json({ message: "Campos obligatorios faltantes" });
   }
-
-  if (reward <= 0) {
-    return res.status(400).json({ message: "La recompensa debe ser mayor a 0" });
-  }
-
-  if (deadline && new Date(deadline) <= new Date()) {
-    return res.status(400).json({ message: "La fecha límite debe ser futura" });
-  }
-
   try {
     const favor = await prisma.favor.create({
       data: {
@@ -56,65 +48,49 @@ export async function createFavor(req, res) {
   }
 }
 
-// Cancela un favor si el usuario es el solicitante y el favor aún está disponible.
-// Valida permisos y estado antes de actualizar a CANCELLED.
+/**
+ * Cancela un favor existente.
+ */
 export async function cancelFavor(req, res) {
   const favorId = parseInt(req.params.id);
-
   try {
     const favor = await prisma.favor.findUnique({ where: { id: favorId } });
-
-    if (!favor) {
-      return res.status(404).json({ message: "Favor no encontrado" });
-    }
-
+    if (!favor) return res.status(404).json({ message: "Favor no encontrado" });
     if (favor.requesterId !== req.user.id) {
-      return res.status(403).json({ message: "Solo el solicitante puede cancelar este favor" });
+      return res.status(403).json({ message: "No autorizado" });
     }
-
-    if (favor.status !== "AVAILABLE") {
-      return res.status(409).json({ message: "Solo se puede cancelar un favor que aún no ha sido aceptado" });
-    }
-
     const updated = await prisma.favor.update({
       where: { id: favorId },
       data: { status: "CANCELLED" },
     });
-
     res.json(updated);
   } catch (error) {
-    console.error("cancelFavor:", error);
-    res.status(500).json({ message: "Error al cancelar el favor" });
+    res.status(500).json({ message: "Error al cancelar" });
   }
 }
 
+/**
+ * ACEPTAR FAVOR 
+ */
 export async function acceptFavor(req, res) {
   const favorId = parseInt(req.params.id);
-
   try {
     const favor = await prisma.favor.findUnique({ where: { id: favorId } });
-
-    if (!favor) {
-      return res.status(404).json({ message: "Favor no encontrado" });
-    }
-
+    if (!favor) return res.status(404).json({ message: "Favor no encontrado" });
     if (favor.requesterId === req.user.id) {
       return res.status(403).json({ message: "No puedes aceptar tu propio favor" });
     }
-
     if (favor.status !== "AVAILABLE") {
       return res.status(409).json({ message: "Este favor ya no está disponible" });
     }
-
     const updated = await prisma.favor.update({
       where: { id: favorId },
       data: { status: "ACCEPTED", executorId: req.user.id },
       include: {
         requester: { select: { id: true, name: true, phone: true } },
-        executor:  { select: { id: true, name: true } },
+        executor: { select: { id: true, name: true } },
       },
     });
-
     res.json(updated);
   } catch (error) {
     console.error("acceptFavor:", error);
@@ -122,6 +98,34 @@ export async function acceptFavor(req, res) {
   }
 }
 
+/**
+ * MARCAR COMO COMPLETADO 
+ */
+export async function markFavorAsCompleted(req, res) {
+  const favorId = parseInt(req.params.id);
+  try {
+    const favor = await prisma.favor.findUnique({ where: { id: favorId } });
+    if (!favor) return res.status(404).json({ message: "Favor no encontrado" });
+    if (favor.executorId !== req.user.id) {
+      return res.status(403).json({ message: "Solo el ejecutor puede completar este favor" });
+    }
+    if (favor.status !== "ACCEPTED") {
+      return res.status(409).json({ message: "Solo se puede completar un favor aceptado" });
+    }
+    const updated = await prisma.favor.update({
+      where: { id: favorId },
+      data: { status: "COMPLETED" },
+    });
+    res.json(updated);
+  } catch (error) {
+    console.error("markFavorAsCompleted:", error);
+    res.status(500).json({ message: "Error al completar el favor" });
+  }
+}
+
+/**
+ * OBTENER MIS FAVORES ACEPTADOS 
+ */
 export async function getMyAcceptedFavors(req, res) {
   try {
     const favors = await prisma.favor.findMany({
