@@ -1,111 +1,126 @@
-# FavUPB Client
+# FavUPB — Client
 
-Aplicación web responsiva construida con React para solicitar y gestionar favores. Interfaz intuitiva que permite a los usuarios visualizar, crear y cancelar solicitudes de favores de manera fluida.
-
----
-
-## 📋 Descripción de archivos
-
-### Estructura Principal
-- **src/main.jsx** - Punto de entrada de la aplicación React
-- **src/App.jsx** - Componente raíz de la aplicación
-- **src/index.css** - Estilos globales
-
-### Carpetas Principales
-- **src/pages/** - Páginas de la aplicación
-- **src/components/** - Componentes reutilizables
-- **src/api/** - Servicios y llamadas a la API
-
-### Archivos Específicos
-- **src/pages/FeedPage.jsx** - Página principal con lista de favores
-- **src/components/FavorCard.jsx** - Componente para mostrar cada favor
-- **src/components/CreateFavorModal.jsx** - Modal para crear nuevos favores
-- **src/api/favors.js** - Servicio API con funciones para llamadas HTTP
-
-### Configuración
-- **vite.config.js** - Configuración de Vite (bundler)
-- **tailwind.config.js** - Configuración de Tailwind CSS
-- **postcss.config.js** - Configuración de PostCSS
-- **index.html** - Plantilla HTML principal
-- **package.json** - Dependencias y scripts del proyecto
+React web application for requesting and managing favors within the university community. Users can browse available favors, publish their own requests, accept favors from others, and track completion.
 
 ---
 
-## 🚀 SETUP - Cómo instalar y ejecutar
+## What does this folder do?
 
-### Requisitos previos
-- Node.js v18 o superior
-- Servidor backend en `localhost:3000`
+This folder contains the entire frontend of the application. It is a single-page application (SPA) built with React 18 and Vite. It communicates with the backend REST API through HTTP requests using Axios, manages authentication state with Zustand, and handles all user-facing screens: login, registration, the favor feed, and the accepted favors list.
+
+---
+
+## How do I install this part of the project?
+
+### Prerequisites
+- Node.js v18 or higher — download at [nodejs.org](https://nodejs.org)
+- The backend server must be running on `localhost:3000` before starting the client
 - Git
 
-### Pasos de instalación
+### Steps
 
-**1) Clonar el repositorio**
+**1. Clone the repository and navigate to the client folder**
 ```bash
 git clone <repository-url>
-cd cliente-favores
+cd equipo-2-ings-202610/client
 ```
 
-**2) Instalar dependencias**
+**2. Install dependencies**
 ```bash
 npm install
 ```
 
-**3) Ejecutar en modo desarrollo**
+---
+
+## How do I run this part of the project?
+
+**Development mode** (with hot reload):
 ```bash
 npm run dev
 ```
-La aplicación estará disponible en `http://localhost:5173`
+The app will be available at `http://localhost:5173`
 
-**4) Compilar para producción**
+**Production build:**
 ```bash
 npm run build
 ```
-Genera los archivos optimizados en la carpeta `dist/`
+Generates optimized files in the `dist/` folder.
 
-**5) Vista previa de la compilación en producción**
+**Preview production build locally:**
 ```bash
 npm run preview
 ```
 
 ---
 
-## 🌐 Configuración de API
+## What standards should be followed in this part of the project?
 
-La aplicación se conecta al servidor backend en `http://localhost:3000/api` por defecto.
-
-Si necesitas cambiar la URL del servidor, busca la configuración en `src/api/favors.js` y actualiza la URL base según tus necesidades.
-
-**Nota:** Asegúrate de que el servidor backend esté corriendo en el puerto 3000 antes de iniciar la aplicación cliente.
-
----
-
-## 📦 Dependencias principales
-
-- **react** - Librería para construir interfaces de usuario
-- **react-dom** - Renderizado de React en el navegador
-- **react-router-dom** - Enrutamiento en la aplicación
-- **axios** - Cliente HTTP para llamadas a la API
-- **react-hook-form** - Manejo de formularios eficiente
-- **yup** - Validación de esquemas
-- **zustand** - Gestión de estado global ligera
-- **tailwindcss** - Framework CSS para estilos responsivos
+- **JSDoc** — all functions and components must have a JSDoc comment explaining what they do, their parameters, and return value.
+- **Component naming** — PascalCase for all React components (e.g. `FavorCard`, `FeedPage`).
+- **File naming** — camelCase for utility files, PascalCase for component files.
+- **Formatting** — Prettier is used for consistent code formatting. Run `npx prettier --write .` before committing.
+- **No hardcoded user IDs** — the authenticated user's ID must always come from `useAuthStore((s) => s.user?.id)`, never as a fixed value.
+- **API calls** — all HTTP calls must go through `src/api/client.js` (the centralized Axios instance with the JWT interceptor), never through a locally created `axios.create()`.
+- **Commits** — messages must be written in English and follow the format: `type: short description` (e.g. `feat: add accept favor button`).
 
 ---
 
-## 💡 Características implementadas
+## What version of JavaScript does it use?
 
-✅ **Visualizar favores** - Lista completa de todos los favores disponibles  
-✅ **Crear nuevos favores** - Modal intuitivo para crear solicitudes  
-✅ **Cancelar solicitudes** - Opción para eliminar favores propios  
-✅ **Interfaz responsiva** - Diseño adaptable a dispositivos móviles y desktop  
+**ES2022 (ESModules)**. The project uses `"type": "module"` in `package.json`, so all imports use `import/export` syntax. Node.js v18 or higher is required.
 
 ---
 
-## 📝 Notas adicionales
+## What do I need for the database?
 
-- La aplicación usa Tailwind CSS para estilos modernos y responsivos
-- Los formularios se validan con Yup antes de enviarse
-- El estado global se gestiona con Zustand
-- Asegúrate de que CORS esté habilitado en el servidor backend
-- Los cambios en modo desarrollo se reflejan en tiempo real (hot reload)
+The client does not connect to the database directly. All data access goes through the backend API. Make sure the backend server is running and connected to PostgreSQL before starting the client.
+
+---
+
+## File structure
+
+```
+client/
+├── index.html                  — Main HTML template
+├── vite.config.js              — Vite configuration and API proxy
+├── tailwind.config.js          — Tailwind CSS configuration
+├── postcss.config.js           — PostCSS configuration
+├── package.json                — Dependencies and scripts
+└── src/
+    ├── main.jsx                — React entry point
+    ├── App.jsx                 — Root component and route definitions
+    ├── index.css               — Global styles (Tailwind directives)
+    ├── api/
+    │   ├── client.js           — Centralized Axios instance with JWT interceptor
+    │   ├── auth.js             — register() and login() API calls
+    │   └── favors.js           — getFavors(), createFavor(), cancelFavor(), acceptFavor(), completeFavor(), getMyAcceptedFavors()
+    ├── stores/
+    │   └── authStore.js        — Zustand store for authentication state (token + user, persisted)
+    ├── hooks/
+    │   └── useAuthHydration.js — Waits for Zustand persistence to hydrate before rendering auth decisions
+    ├── components/
+    │   ├── FavorCard.jsx       — Displays a single favor with cancel, accept, or complete actions
+    │   ├── CreateFavorModal.jsx — Form modal for publishing a new favor request
+    │   ├── ProtectedRoute.jsx  — Redirects unauthenticated users to /login
+    │   └── RootRedirect.jsx    — Redirects / to /feed or /login based on auth state
+    └── pages/
+        ├── LoginPage.jsx       — Login screen with phone and password form
+        ├── RegisterPage.jsx    — Registration screen
+        ├── FeedPage.jsx        — Main feed showing available favors
+        └── MyFavorsPage.jsx    — Shows favors accepted by the current user
+```
+
+---
+
+## Main dependencies
+
+| Package | Purpose |
+|---|---|
+| `react` + `react-dom` | UI library |
+| `react-router-dom` | Client-side routing |
+| `axios` | HTTP client for API calls |
+| `zustand` | Lightweight global state management |
+| `react-hook-form` | Performant form handling |
+| `yup` + `@hookform/resolvers` | Schema-based form validation |
+| `tailwindcss` | Utility-first CSS framework |
+| `vite` | Build tool and dev server |

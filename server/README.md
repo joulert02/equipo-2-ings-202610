@@ -1,132 +1,172 @@
-# FavUPB Server
+# FavUPB — Server
 
-API REST construida con Express y Prisma para gestionar solicitudes de favores. Backend robusto que proporciona endpoints para crear, listar, actualizar y cancelar favores de manera eficiente.
-
----
-
-## 📋 Descripción de archivos
-
-### Estructura Principal
-- **src/index.js** - Punto de entrada de la aplicación, configura Express y las rutas
-- **src/routes/favors.js** - Definición de las rutas de la API (GET, POST, PUT, DELETE)
-- **src/controllers/favors.controller.js** - Lógica de negocio para cada endpoint
-- **src/middleware/authenticate.js** - Verificación de JWT en rutas protegidas
-- **src/routes/auth.js** - Registro e inicio de sesión
-- **src/controllers/auth.controller.js** - Lógica de registro y login (bcrypt + JWT)
-- **src/lib/prisma.js** - Instancia centralizada del cliente Prisma
-
-### Configuración
-- **prisma/schema.prisma** - Esquema de la base de datos
-- **prisma/migrations/** - Historial de migraciones de la BD
-- **prisma/seed.js** - Script para poblar la BD con datos iniciales
-- **.env.example** - Plantilla de variables de entorno
-- **package.json** - Dependencias y scripts del proyecto
+REST API built with Node.js and Express for managing favor requests within the university community. Handles user authentication, favor creation, acceptance, cancellation, and completion tracking.
 
 ---
 
-## 🚀 SETUP - Cómo instalar y ejecutar
+## What does this folder do?
 
-### Requisitos previos
-- Node.js v18 o superior
-- PostgreSQL v12 o superior
+This folder contains the entire backend of the application. It exposes a REST API consumed by the React client, manages all business logic, connects to a PostgreSQL database through Prisma ORM, and handles authentication via JWT tokens with bcrypt password hashing.
+
+---
+
+## How do I install this part of the project?
+
+### Prerequisites
+- Node.js v18 or higher — download at [nodejs.org](https://nodejs.org)
+- PostgreSQL v12 or higher — download at [postgresql.org](https://www.postgresql.org)
+- pgAdmin 4 (comes bundled with PostgreSQL) — used to manage the database visually
 - Git
 
-### Pasos de instalación
+### Steps
 
-**1) Clonar el repositorio**
+**1. Clone the repository and navigate to the server folder**
 ```bash
 git clone <repository-url>
-cd servidor-favores
+cd equipo-2-ings-202610/server
 ```
 
-**2) Instalar dependencias**
+**2. Install dependencies**
 ```bash
 npm install
 ```
 
-**3) Configurar variables de entorno**
+**3. Set up environment variables**
+
+Copy the example file and fill in your values:
 ```bash
-cp .env.example .env
-# Editar .env con tus valores (DATABASE_URL, PORT, etc.)
+copy .env.example .env
 ```
 
-**4) Crear la base de datos PostgreSQL**
-```bash
-# Asegúrate de que PostgreSQL está corriendo
-# Crea una nueva base de datos (por ejemplo: favupb_db)
-createdb favupb_db
+Open `.env` and set your values:
+```env
+DATABASE_URL="postgresql://postgres:YOUR_PASSWORD@localhost:5432/favupb"
+PORT=3000
+JWT_SECRET="your_long_random_secret_min_16_chars"
+# JWT_EXPIRES_IN=7d   (optional, defaults to 7d)
+# SEED_USER_PHONE="3001234567"       (optional, for development seed)
+# SEED_USER_PASSWORD="dev123456"     (optional, for development seed)
 ```
 
-**5) Ejecutar migraciones de Prisma**
+**4. Create the PostgreSQL database**
+
+Open pgAdmin 4, right-click on **Databases → Create → Database**, name it `favupb`, and click Save.
+
+**5. Run database migrations**
 ```bash
-npx prisma migrate dev
+npx prisma migrate deploy
 ```
 
-**6) (Opcional) Poblar la base de datos**
+**6. Seed the database with a test user**
 ```bash
-npx prisma db seed
+node prisma/seed.js
 ```
 
-**7) Iniciar el servidor**
+This creates a test user using the phone and password defined in your `.env` file.
+
+---
+
+## How do I run this part of the project?
+
+**Development mode** (with auto-reload via nodemon):
 ```bash
-# Modo desarrollo (con auto-reload)
 npm run dev
+```
+The server will be available at `http://localhost:3000`
 
-# O modo producción
+**Production mode:**
+```bash
 npm start
 ```
 
-El servidor estará disponible en `http://localhost:3000` (o el puerto configurado en `.env`)
+**Verify the server is running:**
+
+Open `http://localhost:3000/api/health` in your browser — it should return `{ "ok": true }`.
 
 ---
 
-## 📡 Endpoints disponibles
+## What standards should be followed in this part of the project?
 
-| Método | Ruta | Descripción |
-|--------|------|-------------|
-| **POST** | `/api/auth/register` | Registro con teléfono y contraseña (celular CO, 10 dígitos) |
-| **POST** | `/api/auth/login` | Inicio de sesión; responde `token` (JWT) y `user` |
-| **GET** | `/api/favors` | Listar favores disponibles (requiere `Authorization: Bearer <token>`) |
-| **POST** | `/api/favors` | Crear favor (requiere autenticación) |
-| **PATCH** | `/api/favors/:id/cancel` | Cancelar favor (requiere autenticación) |
-
-Tras `npx prisma db seed`, el usuario de prueba usa el teléfono y contraseña configurados en el archivo `.env` (solo desarrollo).
+- **JSDoc** — all exported functions must have a JSDoc comment explaining what they do, their parameters, return values, and any validations performed.
+- **MVC architecture** — business logic lives in `controllers/`, route definitions in `routes/`, and database utilities in `lib/`. Never put business logic directly in route files.
+- **Error handling** — all controller functions must use `try/catch` and return appropriate HTTP status codes: `400` for validation errors, `401` for authentication errors, `403` for permission errors, `404` for not found, `409` for conflicts, `500` for server errors.
+- **Authentication** — all protected routes must use the `authenticate` middleware from `src/middleware/authenticate.js`. Never use `fakeAuth` in code that will be merged to `development`.
+- **Environment variables** — never hardcode secrets, passwords, or configuration values. Always use `process.env` and document new variables in `.env.example`.
+- **Commits** — messages must be written in English and follow the format: `type: short description` (e.g. `feat: add mark as completed endpoint`).
 
 ---
 
-## 🔧 Variables de entorno necesarias
+## What version of JavaScript does it use?
 
-```env
-# URL de conexión a la base de datos PostgreSQL
-DATABASE_URL=postgresql://usuario:contraseña@localhost:5432/favupb_db
+**ES2022 (ESModules)**. The project uses `"type": "module"` in `package.json`, so all imports use `import/export` syntax. Node.js v18 or higher is required.
 
-# Puerto en el que escucha el servidor
-PORT=3000
+---
 
-# Secreto para firmar JWT (obligatorio, mínimo 16 caracteres)
-JWT_SECRET=tu_secreto_largo_y_aleatorio
+## What do I need for the database?
 
-# Opcional (por defecto 7d)
-# JWT_EXPIRES_IN=7d
+- **PostgreSQL v12 or higher** must be installed and running.
+- Create a database named `favupb` in pgAdmin before running migrations.
+- Set the `DATABASE_URL` in your `.env` file with your PostgreSQL credentials.
+- Run `npx prisma migrate deploy` to apply all migrations.
+- Run `node prisma/seed.js` to create the development test user.
+- The database schema is defined in `prisma/schema.prisma`. When you modify the schema, create a new migration with `npx prisma migrate dev --name description-of-change`.
+
+---
+
+## API endpoints
+
+| Method | Route | Auth required | Description |
+|---|---|---|---|
+| `POST` | `/api/auth/register` | No | Register with phone and password |
+| `POST` | `/api/auth/login` | No | Login — returns JWT token and user |
+| `GET` | `/api/favors` | Yes | List all available favors |
+| `POST` | `/api/favors` | Yes | Create a new favor request |
+| `PATCH` | `/api/favors/:id/cancel` | Yes | Cancel own favor (must be AVAILABLE) |
+| `PATCH` | `/api/favors/:id/accept` | Yes | Accept an available favor |
+| `PATCH` | `/api/favors/:id/complete` | Yes | Mark accepted favor as completed — executor only, favor must be ACCEPTED |
+| `GET` | `/api/favors/accepted` | Yes | List favors accepted by the current user |
+| `GET` | `/api/health` | No | Health check |
+
+All protected endpoints require the header: `Authorization: Bearer <token>`
+
+---
+
+## File structure
+
+```
+server/
+├── .env.example                     — Environment variables template
+├── package.json                     — Dependencies and scripts
+├── prisma/
+│   ├── schema.prisma                — Database schema (User, Favor models)
+│   ├── seed.js                      — Creates development test user
+│   └── migrations/                  — Migration history (auto-generated)
+└── src/
+    ├── index.js                     — Entry point: configures Express, registers routers, validates JWT_SECRET
+    ├── controllers/
+    │   ├── auth.controller.js       — register() and login() logic (bcrypt + JWT)
+    │   └── favors.controller.js     — getFavors(), createFavor(), cancelFavor(), acceptFavor(), markFavorAsCompleted(), getMyAcceptedFavors()
+    ├── routes/
+    │   ├── auth.js                  — POST /register and POST /login
+    │   └── favors.js                — All /favors endpoints with authenticate middleware
+    ├── middleware/
+    │   └── authenticate.js          — Verifies JWT from Authorization header, attaches req.user
+    └── lib/
+        ├── prisma.js                — Singleton Prisma client instance
+        ├── jwt.js                   — signToken(), verifyToken(), assertJwtConfigured()
+        └── password.js              — hashPassword(), verifyPassword() using bcryptjs
 ```
 
 ---
 
-## 📦 Dependencias principales
+## Main dependencies
 
-- **express** - Framework web para Node.js
-- **prisma** - ORM para gestionar la base de datos
-- **@prisma/client** - Cliente Prisma para consultas
-- **cors** - Middleware para CORS
-- **dotenv** - Carga variables de entorno desde .env
-- **bcryptjs** - Hash de contraseñas
-- **jsonwebtoken** - Emisión y verificación de JWT
-
----
-
-## 📝 Notas adicionales
-
-- Asegúrate de que PostgreSQL está corriendo antes de iniciar el servidor
-- Las migraciones se aplican automáticamente al ejecutar `npm run dev`
-- El archivo `.env` no debe ser versionado (está en `.gitignore`)
-- Usa `npm run dev` durante desarrollo para auto-reload con nodemon
+| Package | Purpose |
+|---|---|
+| `express` | Web framework for Node.js |
+| `@prisma/client` + `prisma` | ORM for PostgreSQL |
+| `cors` | Cross-origin request handling |
+| `dotenv` | Loads environment variables from `.env` |
+| `bcryptjs` | Secure password hashing (10 rounds) |
+| `jsonwebtoken` | JWT signing and verification |
+| `nodemon` | Auto-reload during development |
