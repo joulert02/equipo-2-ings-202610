@@ -1,13 +1,26 @@
 import { Router } from "express";
-import { fakeAuth } from "../middleware/fakeAuth.js";
-import { getFavors, createFavor, cancelFavor,acceptFavor,markFavorAsCompleted } from "../controllers/favors.controller.js";
+// Usamos el middleware real de autenticación
+import { authenticate } from "../middleware/authenticate.js";
+// Importamos todas las funcione
+import { 
+  getFavors, 
+  createFavor, 
+  cancelFavor, 
+  acceptFavor, 
+  markFavorAsCompleted, 
+  getMyAcceptedFavors 
+} from "../controllers/favors.controller.js";
 
 const router = Router();
 
-router.get("/", fakeAuth, getFavors);              
-router.post("/", fakeAuth, createFavor);            
-router.patch("/:id/cancel", fakeAuth, cancelFavor); 
-router.patch("/:id/accept", fakeAuth, acceptFavor);
-router.patch("/:id/complete", fakeAuth, markFavorAsCompleted);
+// Todas las rutas usan 'authenticate'
+router.get("/", authenticate, getFavors);
+router.post("/", authenticate, createFavor);
+router.get("/accepted", authenticate, getMyAcceptedFavors);
+router.patch("/:id/cancel", authenticate, cancelFavor);
+router.patch("/:id/accept", authenticate, acceptFavor);
+
+// ruta nueva para completar el favor
+router.patch("/:id/complete", authenticate, markFavorAsCompleted);
 
 export default router;

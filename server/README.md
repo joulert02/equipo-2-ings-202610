@@ -10,7 +10,9 @@ API REST construida con Express y Prisma para gestionar solicitudes de favores. 
 - **src/index.js** - Punto de entrada de la aplicación, configura Express y las rutas
 - **src/routes/favors.js** - Definición de las rutas de la API (GET, POST, PUT, DELETE)
 - **src/controllers/favors.controller.js** - Lógica de negocio para cada endpoint
-- **src/middleware/fakeAuth.js** - Middleware de autenticación simulada
+- **src/middleware/authenticate.js** - Verificación de JWT en rutas protegidas
+- **src/routes/auth.js** - Registro e inicio de sesión
+- **src/controllers/auth.controller.js** - Lógica de registro y login (bcrypt + JWT)
 - **src/lib/prisma.js** - Instancia centralizada del cliente Prisma
 
 ### Configuración
@@ -82,10 +84,13 @@ El servidor estará disponible en `http://localhost:3000` (o el puerto configura
 
 | Método | Ruta | Descripción |
 |--------|------|-------------|
-| **GET** | `/api/favors` | Obtener lista de todos los favores |
-| **POST** | `/api/favors` | Crear un nuevo favor |
-| **PUT** | `/api/favors/:id` | Actualizar estado de un favor |
-| **DELETE** | `/api/favors/:id` | Cancelar/eliminar un favor |
+| **POST** | `/api/auth/register` | Registro con teléfono y contraseña (celular CO, 10 dígitos) |
+| **POST** | `/api/auth/login` | Inicio de sesión; responde `token` (JWT) y `user` |
+| **GET** | `/api/favors` | Listar favores disponibles (requiere `Authorization: Bearer <token>`) |
+| **POST** | `/api/favors` | Crear favor (requiere autenticación) |
+| **PATCH** | `/api/favors/:id/cancel` | Cancelar favor (requiere autenticación) |
+
+Tras `npx prisma db seed`, el usuario de prueba usa el teléfono y contraseña configurados en el archivo `.env` (solo desarrollo).
 
 ---
 
@@ -97,6 +102,12 @@ DATABASE_URL=postgresql://usuario:contraseña@localhost:5432/favupb_db
 
 # Puerto en el que escucha el servidor
 PORT=3000
+
+# Secreto para firmar JWT (obligatorio, mínimo 16 caracteres)
+JWT_SECRET=tu_secreto_largo_y_aleatorio
+
+# Opcional (por defecto 7d)
+# JWT_EXPIRES_IN=7d
 ```
 
 ---
@@ -108,6 +119,8 @@ PORT=3000
 - **@prisma/client** - Cliente Prisma para consultas
 - **cors** - Middleware para CORS
 - **dotenv** - Carga variables de entorno desde .env
+- **bcryptjs** - Hash de contraseñas
+- **jsonwebtoken** - Emisión y verificación de JWT
 
 ---
 

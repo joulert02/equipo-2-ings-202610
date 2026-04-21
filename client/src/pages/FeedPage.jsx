@@ -1,132 +1,120 @@
 import { useEffect, useState } from "react";
-// Importa funciones para interactuar con la API de favores
-import { getFavors, cancelFavor, confirmFavorCompletion } from "../api/favors.js";
+import { useNavigate } from "react-router-dom";
+import { getFavors, cancelFavor, acceptFavor, completeFavor } from "../api/favors.js";
 import FavorCard from "../components/FavorCard.jsx";
 import CreateFavorModal from "../components/CreateFavorModal.jsx";
+import { useAuthStore } from "../stores/authStore.js";
 
-/**
- * Página principal que muestra el listado de favores disponibles.
- * - Gestiona el estado global del feed
- * - Permite cancelar y confirmar favores
- * - Controla la visualización del modal de creación
- */
 export default function FeedPage() {
+  const navigate = useNavigate();
+  const logout = useAuthStore((s) => s.logout);
+  const userName = useAuthStore((s) => s.user?.name);
+
   const [favors, setFavors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
-  /**
-   * Ejecuta la carga inicial de favores al montar el componente.
-   */
   useEffect(() => {
     loadFavors();
   }, []);
 
-  /**
-   * Obtiene los favores desde la API y actualiza el estado.
-   * - Activa indicador de carga mientras se realiza la petición
-   * - Maneja errores mostrando un mensaje al usuario
-   */
   async function loadFavors() {
     setLoading(true);
     try {
       setFavors(await getFavors());
-    } catch {
+    } catch (e) {
+      if (e.response?.status === 401) {
+        logout();
+        navigate("/login", { replace: true });
+        return;
+      }
       alert("No se pudieron cargar los favores");
     } finally {
       setLoading(false);
     }
   }
 
-  /**
-   * Cancela un favor existente.
-   * - Solicita confirmación al usuario
-   * - Elimina el favor del estado local tras cancelarlo
-   */
   async function handleCancel(id) {
     if (!confirm("¿Cancelar esta solicitud?")) return;
-
     try {
       await cancelFavor(id);
-
-      // Actualiza el estado eliminando el favor cancelado
       setFavors((prev) => prev.filter((f) => f.id !== id));
     } catch (e) {
       alert(e.response?.data?.message || "Error al cancelar");
     }
   }
 
-  /**
-   * Confirma la finalización de un favor.
-   * - Solicita confirmación al usuario
-   * - Elimina el favor del listado tras confirmarlo
-   */
-  async function handleConfirm(id) {
-    if (!confirm("¿Confirmar que este favor fue completado?")) return;
-
+  async function handleAccept(id) {
     try {
-      await confirmFavorCompletion(id);
-
-      // Actualiza el estado eliminando el favor completado
+      await acceptFavor(id);
+      // Al aceptar, el favor cambia de estado y ya no debe estar en el feed público
       setFavors((prev) => prev.filter((f) => f.id !== id));
     } catch (e) {
-      alert(e.response?.data?.message || "Error al confirmar");
+      alert(e.response?.data?.message || "Error al aceptar");
+    }
+  }
+
+  async function handleComplete(id) {
+    if (!confirm("¿Confirmar que este favor fue completado?")) return;
+    try {
+      await completeFavor(id);
+      setFavors((prev) => prev.filter((f) => f.id !== id));
+    } catch (e) {
+      alert(e.response?.data?.message || "Error al completar");
     }
   }
 
   return (
     <div className="min-h-screen bg-gray-50">
-
-      {/* Encabezado de la página con título y acción principal */}
-      <header className="bg-white border-b border-gray-100 px-4 py-4 flex items-center justify-between sticky top-0 z-10">
-        <h1 className="font-bold text-gray-800 text-lg">FavUPB</h1>
-
-        {/* Botón para abrir el modal de creación */}
-        <button
-          onClick={() => setShowModal(true)}
-          className="bg-emerald-500 text-white text-sm font-medium px-4 py-2 rounded-xl hover:bg-emerald-600"
-        >
-          + Publicar favor
-        </button>
+      <header className="bg-white border-b border-gray-100 px-4 py-4 flex items-center justify-between sticky top-0 z-10 gap-2">
+        <div className="min-w-0">
+          <h1 className="font-bold text-gray-800 text-lg">FavUPB</h1>
+          {userName && <p className="text-xs text-gray-500 truncate">{userName}</p>}
+        </div>
+        
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            onClick={() => {
+              logout();
+              navigate("/login", { replace: true });
+            }}
+            className="text-gray-600 text-sm font-medium px-3 py-2 rounded-xl hover:bg-gray-100"
+          >
+            Cerrar sesión
+          </button>
+          <button
+            onClick={() => setShowModal(true)}
+            className="bg-emerald-500 text-white text-sm font-medium px-4 py-2 rounded-xl hover:bg-emerald-600"
+          >
+            + Publicar favor
+          </button>
+        </div>
       </header>
 
       <main className="max-w-lg mx-auto px-4 py-6 flex flex-col gap-3">
+        {loading && <p className="text-center text-gray-400 text-sm">Cargando favores...</p>}
 
-        {/* Indicador de carga */}
-        {loading && (
-          <p className="text-center text-gray-400 text-sm">
-            Cargando favores...
-          </p>
-        )}
-
-        {/* Mensaje cuando no hay datos */}
         {!loading && favors.length === 0 && (
           <p className="text-center text-gray-400 text-sm mt-12">
-            No hay favores disponibles aún.<br />
-            ¡Sé el primero en publicar uno!
+            No hay favores disponibles aún.
           </p>
         )}
 
-        {/* Renderiza cada favor usando el componente FavorCard */}
         {favors.map((favor) => (
-          <FavorCard
-            key={favor.id}
-            favor={favor}
-            onCancel={handleCancel}
-            onConfirm={handleConfirm}
+          <FavorCard 
+            key={favor.id} 
+            favor={favor} 
+            onCancel={handleCancel} 
+            onAccept={handleAccept}
+            onComplete={handleComplete}
           />
         ))}
       </main>
 
-      {/* Modal para crear un nuevo favor */}
       {showModal && (
         <CreateFavorModal
           onClose={() => setShowModal(false)}
-
-          // Agrega el nuevo favor al inicio del listado
-          onCreated={(newFavor) =>
-            setFavors((prev) => [newFavor, ...prev])
-          }
+          onCreated={(newFavor) => setFavors((prev) => [newFavor, ...prev])}
         />
       )}
     </div>

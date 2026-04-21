@@ -11,8 +11,10 @@ model User {
   id        Int      @id @default(autoincrement())
   name      String
   phone     String   @unique
+  passwordHash String
   createdAt DateTime @default(now())
-  favors    Favor[]
+  requestedFavors Favor[]  @relation("RequesterFavors")
+  acceptedFavors  Favor[]  @relation("ExecutorFavors")
 }
 
 model Favor {
@@ -25,7 +27,9 @@ model Favor {
   deadline    DateTime?
   createdAt   DateTime    @default(now())
   requesterId Int
-  requester   User        @relation(fields: [requesterId], references: [id])
+  requester   User        @relation("RequesterFavors", fields: [requesterId], references: [id])
+  executorId  Int?
+  executor    User?       @relation("ExecutorFavors", fields: [executorId], references: [id])
 }
 
 enum FavorStatus {
