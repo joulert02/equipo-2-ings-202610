@@ -2,7 +2,7 @@ import { useAuthStore } from "../stores/authStore.js";
 
 // Renderiza una tarjeta individual de favor mostrando título, descripción, ubicación, recompensa,
 // plazo y solicitante. Solo muestra botón cancelar si el usuario actual es el solicitante.
-export default function FavorCard({ favor, onCancel }) {
+export default function FavorCard({ favor, onCancel, onAccept }) {
   const currentUserId = useAuthStore((s) => s.user?.id);
   const isOwner = favor.requesterId === currentUserId;
   const isExpired = favor.deadline && new Date(favor.deadline) < new Date();
