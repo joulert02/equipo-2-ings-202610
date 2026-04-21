@@ -43,3 +43,9 @@ export const confirmFavorCompletion = (id) =>
  */
 export const getMyAcceptedFavors = () => 
   api.get("/favors/accepted").then((r) => r.data);
+
+/**
+ * Obtiene los favores que yo pedí.
+ */
+export const getMyRequestedFavors = () => 
+  api.get("/favors/requested").then((r) => r.data);

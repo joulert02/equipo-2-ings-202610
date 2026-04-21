@@ -37,4 +37,5 @@ enum FavorStatus {
   CANCELLED
   ACCEPTED
   COMPLETED
+  CLOSED
 }

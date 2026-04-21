@@ -127,7 +127,7 @@ export async function markFavorAsCompleted(req, res) {
       return res.status(403).json({ message: "Solo el ejecutor puede completar este favor" });
     }
     if (favor.status !== "ACCEPTED") {
-      return res.status(409).json({ message: "Solo se puede completar un favor aceptado" });
+      return res.status(409).json({ message: "No se puede completar: el favor ya no está en curso o ya fue finalizado" });
     }
 
     const updated = await prisma.favor.update({
@@ -155,7 +155,7 @@ export async function confirmFavorCompletion(req, res) {
     }
 
     if (favor.status !== "COMPLETED") {
-      return res.status(409).json({ message: "El favor debe estar marcado como completado previamente" });
+      return res.status(409).json({ message: "El favor debe estar marcado como completado por el ejecutor para poder finalizarlo" });
     }
 
     const updated = await prisma.favor.update({
@@ -185,5 +185,27 @@ export async function getMyAcceptedFavors(req, res) {
   } catch (error) {
     console.error("getMyAcceptedFavors:", error);
     res.status(500).json({ message: "Error al obtener favores aceptados" });
+  }
+}
+
+/**
+ * OBTENER MIS FAVORES PEDIDOS
+ */
+export async function getMyRequestedFavors(req, res) {
+  try {
+    const favors = await prisma.favor.findMany({
+      where: { 
+        requesterId: req.user.id,
+        status: { in: ["AVAILABLE", "ACCEPTED", "COMPLETED"] }
+      },
+      orderBy: { createdAt: "desc" },
+      include: {
+        executor: { select: { id: true, name: true } },
+      },
+    });
+    res.json(favors);
+  } catch (error) {
+    console.error("getMyRequestedFavors:", error);
+    res.status(500).json({ message: "Error al obtener tus favores pedidos" });
   }
 }
