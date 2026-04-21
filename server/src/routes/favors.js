@@ -8,6 +8,7 @@ import {
   acceptFavor, 
   markFavorAsCompleted, 
   getMyAcceptedFavors,
+  getMyRequestedFavors, // Agregado
   confirmFavorCompletion // La nueva función 
 } from "../controllers/favors.controller.js";
 
@@ -17,6 +18,7 @@ const router = Router();
 router.get("/", authenticate, getFavors);
 router.post("/", authenticate, createFavor);
 router.get("/accepted", authenticate, getMyAcceptedFavors);
+router.get("/requested", authenticate, getMyRequestedFavors);
 router.patch("/:id/cancel", authenticate, cancelFavor);
 router.patch("/:id/accept", authenticate, acceptFavor);
 

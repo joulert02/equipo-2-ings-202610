@@ -8,8 +8,8 @@ export default function FavorCard({ favor, onCancel, onAccept, onComplete, onCon
   // Obtenemos el ID del usuario real desde el store global
   const currentUserId = useAuthStore((s) => s.user?.id);
   
-  const isOwner = favor.requesterId === currentUserId;
-  const isExecutor = favor.executorId === currentUserId;
+  const isOwner = favor.requesterId === currentUserId || favor.requester?.id === currentUserId;
+  const isExecutor = favor.executorId === currentUserId || favor.executor?.id === currentUserId;
   const isExpired = favor.deadline && new Date(favor.deadline) < new Date();
 
   return (
