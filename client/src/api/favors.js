@@ -26,9 +26,17 @@ export const acceptFavor = (id) =>
 
 /**
  * MARCAR COMO COMPLETADO .
+ * Lo llama la persona que realiza el favor.
  */
 export const completeFavor = (id) => 
   api.patch(`/favors/${id}/complete`).then((r) => r.data);
+
+/**
+ * CONFIRMAR FINALIZACIÓN 
+ * Lo llama el dueño del favor para cerrarlo definitivamente.
+ */
+export const confirmFavorCompletion = (id) =>
+  api.patch(`/favors/${id}/confirm`).then((r) => r.data);
 
 /**
  * Obtiene los favores que yo acepté realizar.

@@ -2,13 +2,14 @@ import { useAuthStore } from "../stores/authStore.js";
 
 /**
  * Componente que muestra la información de un favor en forma de tarjeta.
- * Integra la lógica de autenticación real y las acciones de completar.
+ * Integra la lógica de RF-014 (Completar) y RF-015 (Confirmar).
  */
-export default function FavorCard({ favor, onCancel, onAccept, onComplete }) {
+export default function FavorCard({ favor, onCancel, onAccept, onComplete, onConfirm }) {
   // Obtenemos el ID del usuario real desde el store global
   const currentUserId = useAuthStore((s) => s.user?.id);
   
   const isOwner = favor.requesterId === currentUserId;
+  const isExecutor = favor.executorId === currentUserId;
   const isExpired = favor.deadline && new Date(favor.deadline) < new Date();
 
   return (
@@ -27,50 +28,68 @@ export default function FavorCard({ favor, onCancel, onAccept, onComplete }) {
       {/* Descripción */}
       <p className="text-gray-500 text-sm">{favor.description}</p>
 
-      {/* Info adicional */}
+      {/* Información adicional */}
       <div className="flex flex-wrap gap-2 text-xs text-gray-400 mt-1">
         <span>📍 {favor.location}</span>
+
         {favor.deadline && (
           <span className={isExpired ? "text-red-400" : ""}>
             ⏰ {new Date(favor.deadline).toLocaleString("es-CO")}
             {isExpired && " — vencido"}
           </span>
         )}
-        <span>👤 {favor.requester?.name}</span>
+
+        <span>👤 {favor.requester?.name || "Usuario"}</span>
+        
+        {/* Etiqueta de estado para seguimiento visual */}
+        <span className="bg-gray-100 px-2 py-0.5 rounded-full text-[10px] uppercase font-bold">
+          {favor.status}
+        </span>
       </div>
 
       {/* Botones de Acción */}
-      <div className="flex gap-2 mt-2">
+      <div className="flex flex-col gap-2 mt-2">
         
-        {/* Caso 1: Soy el dueño y el favor sigue disponible -> Puedo cancelar */}
+        {/* Cancelar (Solo el dueño si está disponible) */}
         {isOwner && favor.status === "AVAILABLE" && (
           <button
             onClick={() => onCancel(favor.id)}
-            className="flex-1 text-sm text-red-500 border border-red-200 rounded-xl py-2 hover:bg-red-50 transition-colors"
+            className="w-full text-sm text-red-500 border border-red-200 rounded-xl py-2 hover:bg-red-50 transition-colors"
           >
             Cancelar solicitud
           </button>
         )}
 
-        {/* Caso 2: No soy el dueño y está disponible -> Puedo aceptar */}
+        {/* Aceptar (No soy el dueño y está disponible) */}
         {!isOwner && !isExpired && favor.status === "AVAILABLE" && (
           <button
             onClick={() => onAccept(favor.id)}
-            className="flex-1 text-sm text-white bg-emerald-500 rounded-xl py-2 hover:bg-emerald-600 transition-colors font-medium"
+            className="w-full text-sm text-white bg-emerald-500 rounded-xl py-2 hover:bg-emerald-600 transition-colors font-medium"
           >
             ✅ Aceptar favor
           </button>
         )}
 
-        {/* Caso 3: Soy el ejecutor y ya lo acepté -> Puedo completar  */}
-        {!isOwner && favor.status === "ACCEPTED" && favor.executorId === currentUserId && (
+        {/*  Marcar como completado (Solo el ejecutor si está aceptado) */}
+        {isExecutor && favor.status === "ACCEPTED" && (
           <button
             onClick={() => onComplete(favor.id)}
-            className="flex-1 text-sm text-emerald-600 border border-emerald-200 rounded-xl py-2 hover:bg-emerald-50 transition-colors font-medium"
+            className="w-full text-sm text-emerald-600 border border-emerald-200 rounded-xl py-2 hover:bg-emerald-50 transition-colors font-medium"
           >
             Marcar como completado
           </button>
         )}
+
+        {/*  Confirmar finalización (Solo el dueño si el ejecutor ya marcó completado) */}
+        {isOwner && favor.status === "COMPLETED" && (
+          <button
+            onClick={() => onConfirm(favor.id)}
+            className="w-full text-sm text-white bg-blue-600 rounded-xl py-2 hover:bg-blue-700 transition-colors font-medium shadow-sm"
+          >
+            ⭐ Confirmar y Cerrar Favor
+          </button>
+        )}
+
       </div>
     </article>
   );
