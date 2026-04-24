@@ -6,7 +6,7 @@
 | 📂 [doc/sprint.md](sprint.md#fecha-del-sprint-20260327) | Primera semana de trabajo arduo |
 | 📂 [doc/sprint.md](sprint.md#fecha-del-sprint-20260410) | Segunda semana de trabajo arduo |
 | 📂 [doc/sprint.md](sprint.md#fecha-del-sprint-20260417) | Tercera semana de trabajo arduo |
-| 📂 [doc/sprint.md](sprint.md#fecha-del-sprint-20260424) | Cuarta semana de trabajo arduo |
+| 📂 [doc/sprint.md](sprint.md#fecha-del-sprint-20260424) | Cuarta semana de trabajo arduo  |
 
 # Documentacion
 
