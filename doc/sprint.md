@@ -22,7 +22,7 @@
 ## Screenshot del burndown 3
 ![alt text](sprint-images/Burndown3.png)
 
-# Fecha del Sprint: 2026/04/24
+# Fecha del Sprint: 2026/04/24 
 
 ## Screenshot del tablero 4
 ![alt text](sprint-images/Tablerazo4.png)
