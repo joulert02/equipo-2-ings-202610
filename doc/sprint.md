@@ -27,6 +27,6 @@
 ## Screenshot del tablero 4
 ![alt text](sprint-images/Tablerazo4.png)
 
-## Screenshot del burndown 4
+## Screenshot del burndown 4 
 ![alt text](sprint-images/Burndown4.png)
 
