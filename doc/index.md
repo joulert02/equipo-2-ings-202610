@@ -3,10 +3,8 @@
 | Archivo | Descripción |
 | :--- | :--- |
 | 📂 [doc/analysis/index.md](analysis/index.md) | Requisitos funcionales y no funcionales |
-| 📂 [doc/sprint.md](sprint.md#fecha-del-sprint-20260327) | Primera semana de trabajo arduo |
-| 📂 [doc/sprint.md](sprint.md#fecha-del-sprint-20260410) | Segunda semana de trabajo arduo |
-| 📂 [doc/sprint.md](sprint.md#fecha-del-sprint-20260417) | Tercera semana de trabajo arduo |
-| 📂 [doc/sprint.md](sprint.md#fecha-del-sprint-20260424) | Cuarta semana de trabajo arduo  |
+| 📂 [doc/sprint.md](sprint.md#fecha-del-sprint-20260327) | Seguimiento semanal del sprint (burndown y tablero) |
+
 
 # Documentacion
 
