@@ -1,0 +1,30 @@
+{
+    "version": "1.0.0",
+    "name": "favupb-server",
+    "scripts": {
+        "start": "node src/index.js",
+        "dev": "nodemon src/index.js",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "lint": "eslint src"
+    },
+    "type": "module",
+    "prisma": {
+        "seed": "node prisma/seed.js"
+    },
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "dotenv": "^16.4.5",
+        "@prisma/client": "^5.14.0",
+        "express": "^4.19.2",
+        "cors": "^2.8.5",
+        "jsonwebtoken": "^9.0.2"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.4",
+        "prisma": "^5.14.0",
+        "vitest": "^1.6.0",
+        "eslint": "^9.6.0",
+        "@eslint/js": "^9.6.0"
+    }
+}
