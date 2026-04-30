@@ -45,3 +45,36 @@ jobs:
         with:
           name: frontend-build
           path: dist/
+
+# =============================================================
+# NOTAS PARA EL ESTUDIANTE
+# =============================================================
+#
+# Este archivo define un pipeline de CI (Integración Continua).
+# CI automatiza la validación del código cada vez que alguien
+# hace push, evitando que errores lleguen a producción.
+#
+# TRIGGERS (on:)
+#   - push a ramas feature/** → corre automáticamente al hacer push
+#   - workflow_dispatch       → permite correrlo manualmente desde
+#                               GitHub → Actions → "Run workflow"
+#
+# JOBS (etapas del pipeline):
+#   Cada job corre en una máquina virtual limpia (ubuntu-latest).
+#   La clave `needs` define el orden — si lint falla, test no corre.
+#
+#   lint  → Revisa que el código siga las reglas de estilo
+#   test  → Ejecuta pruebas unitarias (solo si lint pasó)
+#   build → Empaqueta la app para producción (solo si test pasó)
+#
+# ARTEFACTO:
+#   El paso final sube la carpeta /dist a GitHub como artefacto
+#   descargable. En un proyecto real, aquí se haría el deploy.
+#
+# EN ESTE EJEMPLO los pasos son "mock" (simulados con echo).
+# En producción se reemplazarían por comandos reales:
+#   lint  → npx eslint .
+#   test  → npm test
+#   build → npm run build
+# =============================================================
+
