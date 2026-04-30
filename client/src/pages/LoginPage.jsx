@@ -20,6 +20,7 @@ export default function LoginPage() {
   const setSession = useAuthStore((s) => s.setSession);
   const [serverError, setServerError] = useState("");
   const [banner, setBanner] = useState("");
+  const unusedVar = "Esto es para probar el nuevo sistema de revisión de código";
 
   useEffect(() => {
     if (location.state?.registered) {
@@ -48,7 +49,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center px-4">
       <div className="max-w-sm mx-auto w-full">
-          <h1 className="text-xl font-bold text-gray-800 text-center mb-1">Iniciar sesión</h1>
+          <h1 className="text-xl font-bold text-gray-800 text-center mb-1">Iniciar sesión desde CI</h1>
         <p className="text-sm text-gray-500 text-center mb-6">FavUPB</p>
 
         <form onSubmit={handleSubmit(onSubmit)} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-4">
