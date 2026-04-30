@@ -80,7 +80,7 @@ export async function cancelFavor(req, res) {
       data: { status: "CANCELLED" },
     });
     res.json(updated);
-  } catch (error) {
+  } catch {
     res.status(500).json({ message: "Error al cancelar" });
   }
 }
