@@ -1,5 +1,6 @@
 {
   "rewrites": [
-    { "source": "/((?!api/.*).*)", "destination": "/index.html" }
+    { "source": "/api/:path*", "destination": "https://fav-upb-server.vercel.app/api/:path*" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }
